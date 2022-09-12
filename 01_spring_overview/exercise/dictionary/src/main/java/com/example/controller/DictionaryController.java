@@ -13,12 +13,12 @@ public class DictionaryController {
     private IDictionaryService iDictionaryService;
 
     @GetMapping("/")
-    public String showList(){
+    public String showList() {
         return "search";
     }
 
     @GetMapping("dictionary")
-    public ModelAndView result(@RequestParam String eng){
-        return new ModelAndView("search","result",iDictionaryService.search(eng));
+    public ModelAndView result(@RequestParam String eng) {
+        return new ModelAndView("search", "result", iDictionaryService.search(eng));
     }
 }
