@@ -19,11 +19,6 @@ public class EmailService implements IEmailService {
     }
 
     @Override
-    public void save(Email email) {
-        emailRepository.save(email);
-    }
-
-    @Override
     public void update(Email email) {
         emailRepository.update(email);
     }

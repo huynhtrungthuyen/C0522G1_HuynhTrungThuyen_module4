@@ -7,8 +7,6 @@ import java.util.List;
 public interface IEmailRepository {
     List<Email> findAll();
 
-    void save(Email email);
-
     void update(Email email);
 
     Email findById(int id);

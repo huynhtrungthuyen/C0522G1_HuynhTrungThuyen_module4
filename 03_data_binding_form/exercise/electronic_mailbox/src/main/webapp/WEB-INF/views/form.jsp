@@ -34,10 +34,12 @@
             <td>Spams filter</td>
             <td><form:checkbox path="spamsFilter"/> Enable spams filter</td>
         </tr>
+
         <tr>
             <td>Signature</td>
             <td><form:textarea path="signature"/></td>
         </tr>
+
         <tr>
             <td></td>
             <td><form:button>Update</form:button></td>

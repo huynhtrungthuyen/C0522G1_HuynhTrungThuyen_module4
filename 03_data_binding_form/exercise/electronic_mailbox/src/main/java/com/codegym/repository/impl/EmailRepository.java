@@ -2,12 +2,12 @@ package com.codegym.repository.impl;
 
 import com.codegym.model.Email;
 import com.codegym.repository.IEmailRepository;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Repository
 public class EmailRepository implements IEmailRepository {
     private static List<Email> emailList;
 
@@ -25,16 +25,13 @@ public class EmailRepository implements IEmailRepository {
     }
 
     @Override
-    public void save(Email email) {
-        emailList.add(email);
-    }
-
-    @Override
     public void update(Email email) {
         for (Email item : emailList) {
             if (email.getId() == item.getId()) {
-                emailList.remove(item);
-                emailList.add(email);
+                item.setLanguages(email.getLanguages());
+                item.setPageSize(email.getPageSize());
+                item.setSpamsFilter(email.isSpamsFilter());
+                item.setSignature(email.getSignature());
                 break;
             }
         }
