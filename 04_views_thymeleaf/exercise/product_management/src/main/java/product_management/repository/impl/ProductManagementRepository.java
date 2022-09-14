@@ -37,8 +37,8 @@ public class ProductManagementRepository implements IProductManagementRepository
     }
 
     @Override
-    public void update(int id, Product product) {
-        productList.put(id, product);
+    public void update(Product product) {
+        productList.put(product.getId(), product);
     }
 
     @Override

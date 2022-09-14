@@ -29,8 +29,8 @@ public class ProductManagementService implements IProductManagementService {
     }
 
     @Override
-    public void update(int id, Product product) {
-        productManagementRepository.update(id, product);
+    public void update(Product product) {
+        productManagementRepository.update(product);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class ProductController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-        productManagementService.update(product.getId(), product);
+        productManagementService.update(product);
         redirectAttributes.addFlashAttribute("mess", "Update product successful!");
         return "redirect:/";
     }

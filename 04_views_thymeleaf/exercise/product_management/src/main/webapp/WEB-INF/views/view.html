@@ -11,53 +11,29 @@
 <a th:href="@{/}">Back to product list</a>
 
     <table th:object="${product}">
-<!--        <tr>-->
-<!--            <td>Id</td>-->
-<!--            <td><input type="number" th:field="*{id}" disabled/></td>-->
-<!--        </tr>-->
-
-<!--        <tr>-->
-<!--            <td>Name</td>-->
-<!--            <td><input type="text" th:field="*{name}" disabled/></td>-->
-<!--        </tr>-->
-
-<!--        <tr>-->
-<!--            <td>Price</td>-->
-<!--            <td><input type="number" th:field="*{price}" disabled/></td>-->
-<!--        </tr>-->
-
-<!--        <tr>-->
-<!--            <td>Describe</td>-->
-<!--            <td><input type="text" th:field="*{describe}" disabled/></td>-->
-<!--        </tr>-->
-
-<!--        <tr>-->
-<!--            <td>Producer</td>-->
-<!--            <td><input type="text" th:field="*{producer}" disabled/></td>-->
-<!--        </tr>-->
         <tr>
             <td>Id: </td>
-            <td th:text="${product.getId()}"></td>
+            <td th:text="${product.id}"></td>
         </tr>
 
         <tr>
             <td>Name: </td>
-            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.name}"></td>
         </tr>
 
         <tr>
             <td>Price: </td>
-            <td th:text="${product.getPrice()}"></td>
+            <td th:text="${product.price}"></td>
         </tr>
 
         <tr>
             <td>Describe: </td>
-            <td th:text="${product.getDescribe()}"></td>
+            <td th:text="${product.describe}"></td>
         </tr>
 
         <tr>
             <td>Producer: </td>
-            <td th:text="${product.getProducer()}"></td>
+            <td th:text="${product.producer}"></td>
     </table>
 </body>
 </html>
