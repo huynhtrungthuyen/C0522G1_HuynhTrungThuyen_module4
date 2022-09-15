@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>Music list</h2>
+
+<a th:href="@{/create}">Add new</a>
+
+<p style="color: green" th:text="${mess}"></p>
+
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Singer</th>
+        <th>Category</th>
+        <th>File</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    <tr th:each="music : ${musicList}">
+        <td th:text="${music.id}"></td>
+        <td th:text="${music.name}"></td>
+        <td th:text="${music.singer}"></td>
+        <td th:text="${music.category}"></td>
+        <td><a th:href="${music.file}">Link</a></td>
+        <td><a th:href="@{/edit/__${music.id}__}">edit</a></td>
+        <td><a th:href="@{/delete/__${music.id}__}">delete</a></td>
+    </tr>
+</table>
+</body>
+</html>
