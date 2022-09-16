@@ -8,6 +8,7 @@ import product_management.model.Product;
 import product_management.repository.ConnectionUtil;
 import product_management.repository.IProductManagementRepository;
 
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,15 +122,8 @@ public class ProductManagementRepository implements IProductManagementRepository
 
     @Override
     public List<Product> findByName(String name) {
-        List<Product> productSearch = new ArrayList<>();
-        List<Product> productList = findAll();
-
-        for (Product item : productList) {
-            if (item.getName().contains(name)) {
-                productSearch.add(item);
-            }
-        }
-
-        return productSearch;
+        TypedQuery<Product> query = ConnectionUtil.entityManager.createQuery("SELECT c FROM Product AS c WHERE c.name like :param", Product.class);
+        query.setParameter("param", "%" + name + "%");
+        return query.getResultList();
     }
 }
