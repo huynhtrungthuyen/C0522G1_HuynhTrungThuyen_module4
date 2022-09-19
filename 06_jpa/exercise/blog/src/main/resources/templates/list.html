@@ -27,6 +27,7 @@
         <th>Title</th>
         <th>Writer</th>
         <th>Category</th>
+        <th>Date</th>
         <th>Edit</th>
         <th>Delete</th>
         <th>View</th>
@@ -38,6 +39,7 @@
         <td th:text="${blog.writer}"></td>
         <td th:if="${blog.category}" th:text="${blog.category.categoryName}"></td>
         <td th:unless="${blog.category}">non</td>
+        <td th:text="${blog.dateCreated}"></td>
         <td><a th:href="@{/edit/__${blog.id}__}">edit</a></td>
         <td><a th:href="@{/delete/__${blog.id}__}">delete</a></td>
         <td><a th:href="@{/view/__${blog.id}__}">view</a></td>

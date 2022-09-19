@@ -14,12 +14,12 @@
     <table>
         <tr>
             <td>Title:</td>
-            <td><input type="text" th:field="*{title}"/></td>
+            <td><input type="text" th:field="*{title}" /></td>
         </tr>
 
         <tr>
             <td>Writer:</td>
-            <td><input type="text" th:field="*{writer}"/></td>
+            <td><input type="text" th:field="*{writer}" /></td>
         </tr>
 
         <tr>
@@ -28,6 +28,13 @@
                 <select th:field="*{category}">
                     <option th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.categoryName}"></option>
                 </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Date:</td>
+            <td>
+                <input type="date" th:field="*{dateCreated}" />
             </td>
         </tr>
 

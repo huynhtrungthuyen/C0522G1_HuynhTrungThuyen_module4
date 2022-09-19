@@ -17,6 +17,7 @@
     <span>Thể loại: </span>
     <span th:if="${blog.category}" th:text="${blog.category.categoryName}"></span>
     <span th:unless="${blog.category}">non</span><br>
+    <span>Ngày viết: </span><span th:text="${blog.dateCreated}"></span><br>
 
     <h4>Nội dung:</h4>
     <p th:text="${blog.content}"></p>
