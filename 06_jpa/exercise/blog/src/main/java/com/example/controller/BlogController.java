@@ -12,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
-
 @Controller
 public class BlogController {
     @Autowired
@@ -23,15 +21,14 @@ public class BlogController {
     private ICategoryService iCategoryService;
 
     @GetMapping("")
-    public String showList(@PageableDefault(value = 5, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable,
-                           @RequestParam("search") Optional<String> search, Model model) {
-        if (search.isPresent()) {
-            model.addAttribute("blogList", iBlogService.findAllByTitleContaining(search.get(), pageable));
-            model.addAttribute("categoryList", iCategoryService.findAll());
-        } else {
-            model.addAttribute("blogList", iBlogService.findAll(pageable));
-            model.addAttribute("categoryList", iCategoryService.findAll());
-        }
+    public String showList(@PageableDefault(value = 5, sort = "dateCreated", direction = Sort.Direction.DESC)
+                                   Pageable pageable, @RequestParam(value = "search", defaultValue = "")
+                                   String search, Model model) {
+
+        model.addAttribute("blogList", iBlogService.findAllByTitleContaining(search, pageable));
+        model.addAttribute("categoryList", iCategoryService.findAll());
+        model.addAttribute("search", search);
+
         return "/list";
     }
 
