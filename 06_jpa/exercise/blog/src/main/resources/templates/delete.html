@@ -27,6 +27,14 @@
         </tr>
 
         <tr>
+            <td>Category:</td>
+            <td>
+                <span th:if="${blog.category}" th:text="${blog.category.categoryName}"></span>
+                <span th:unless="${blog.category}">non</span><br>
+            </td>
+        </tr>
+
+        <tr>
             <td>Content:</td>
             <td><textarea th:field="*{content}" readonly></textarea></td>
         </tr>

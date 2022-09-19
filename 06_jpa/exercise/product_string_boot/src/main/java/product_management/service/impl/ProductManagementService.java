@@ -35,7 +35,7 @@ public class ProductManagementService implements IProductManagementService {
 
     @Override
     public void remove(int id) {
-        productManagementRepository.delete(productManagementRepository.findById(id));
+        productManagementRepository.deleteById(id);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Blog {
@@ -14,14 +11,19 @@ public class Blog {
     private String writer;
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
     public Blog() {
     }
 
-    public Blog(int id, String name, String describe1, String producer) {
+    public Blog(int id, String title, String writer, String content, Category category) {
         this.id = id;
-        this.title = name;
-        this.writer = describe1;
-        this.content = producer;
+        this.title = title;
+        this.writer = writer;
+        this.content = content;
+        this.category = category;
     }
 
     public String getWriter() {
@@ -54,5 +56,13 @@ public class Blog {
 
     public void setContent(String producer) {
         this.content = producer;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
