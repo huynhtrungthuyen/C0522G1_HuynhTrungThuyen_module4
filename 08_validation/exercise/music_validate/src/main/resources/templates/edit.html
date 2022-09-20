@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h3>Edit</h3>
+
+<a th:href="@{/}">Back to music list</a>
+
+<form action="/update" method="post" th:object="${musicDto}">
+    <table>
+        <tr>
+            <td>
+                <input type="hidden" th:field="*{id}" readonly/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Name:</td>
+            <td>
+                <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                <input type="text" th:field="*{name}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Singer:</td>
+            <td>
+                <p style="color: red" th:if="${#fields.hasErrors('singer')}" th:errors="*{singer}"></p>
+                <input type="text" th:field="*{singer}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Category:</td>
+            <td>
+                <p style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
+                <input type="text" th:field="*{category}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>File:</td>
+            <td>
+                <p style="color: red" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></p>
+                <input type="text" th:field="*{file}"/>
+            </td>
+        </tr>
+    </table>
+
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

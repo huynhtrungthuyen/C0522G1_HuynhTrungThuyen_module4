@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ValidatingFormInputApplication {
+public class MusicValidateApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ValidatingFormInputApplication.class, args);
+        SpringApplication.run(MusicValidateApplication.class, args);
     }
 
 }

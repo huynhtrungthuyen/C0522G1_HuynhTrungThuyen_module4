@@ -20,7 +20,6 @@
         <th>Category</th>
         <th>File</th>
         <th>Edit</th>
-        <th>Delete</th>
     </tr>
 
     <tr th:each="music : ${musicList}">
@@ -30,7 +29,6 @@
         <td th:text="${music.category}"></td>
         <td><a th:href="${music.file}">Link</a></td>
         <td><a th:href="@{/edit/__${music.id}__}">edit</a></td>
-        <td><a th:href="@{/delete/__${music.id}__}">delete</a></td>
     </tr>
 </table>
 </body>
