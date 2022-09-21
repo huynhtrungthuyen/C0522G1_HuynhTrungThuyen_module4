@@ -8,13 +8,13 @@
 
 <h2>Music list</h2>
 
-<a th:href="@{/create}">Add new</a>
+<p><a th:href="@{/create}">Add new</a></p>
 
 <p style="color: green" th:text="${mess}"></p>
 
 <table border="1" cellpadding="10">
     <tr>
-        <th>Id</th>
+        <th>#</th>
         <th>Name</th>
         <th>Singer</th>
         <th>Category</th>
@@ -22,8 +22,8 @@
         <th>Edit</th>
     </tr>
 
-    <tr th:each="music : ${musicList}">
-        <td th:text="${music.id}"></td>
+    <tr th:each="music, status : ${musicList}">
+        <td th:text="${status.count}"></td>
         <td th:text="${music.name}"></td>
         <td th:text="${music.singer}"></td>
         <td th:text="${music.category}"></td>

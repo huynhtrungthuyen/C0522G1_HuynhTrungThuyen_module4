@@ -21,20 +21,26 @@ public class BlogController {
     private ICategoryService iCategoryService;
 
     @GetMapping("")
-    public String showList(@PageableDefault(value = 5, sort = "dateCreated", direction = Sort.Direction.DESC)
+    public String showList(@PageableDefault(value = 5, sort = "date_created", direction = Sort.Direction.DESC)
                                    Pageable pageable, @RequestParam(value = "search", defaultValue = "")
                                    String search, Model model) {
-        model.addAttribute("blogList", iBlogService.findAllByTitleContaining(search, pageable));
+        model.addAttribute("blogList", iBlogService.searchByTitle(search, pageable));
         model.addAttribute("categoryList", iCategoryService.findAll());
         model.addAttribute("search", search);
-        return "/list";
+        return "blog/list";
+    }
+
+    @GetMapping("/dto")
+    public String showListDto(Model model) {
+        model.addAttribute("dtoList", iBlogService.showListDto());
+        return "blog/dto";
     }
 
     @GetMapping("/add")
     public String create(Model model) {
         model.addAttribute("blog", new Blog());
         model.addAttribute("categoryList", iCategoryService.findAll());
-        return "/create";
+        return "blog/create";
     }
 
     @PostMapping("/save")
@@ -48,7 +54,7 @@ public class BlogController {
     public String edit(@PathVariable int id, Model model) {
         model.addAttribute("blog", iBlogService.findById(id));
         model.addAttribute("categoryList", iCategoryService.findAll());
-        return "/edit";
+        return "blog/edit";
     }
 
     @PostMapping("/update")
@@ -62,7 +68,7 @@ public class BlogController {
     private String delete(@PathVariable int id, Model model) {
         model.addAttribute("blog", iBlogService.findById(id));
         model.addAttribute("categoryList", iCategoryService.findAll());
-        return "/delete";
+        return "blog/delete";
     }
 
     @PostMapping("/delete")
@@ -76,6 +82,6 @@ public class BlogController {
     public String view(@PathVariable int id, Model model) {
         model.addAttribute("blog", iBlogService.findById(id));
         model.addAttribute("categorygList", iCategoryService.findAll());
-        return "/view";
+        return "blog/view";
     }
 }

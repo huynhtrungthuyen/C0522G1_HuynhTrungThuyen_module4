@@ -10,10 +10,6 @@
 
 <a th:href="@{/add}">Add new</a><br><br>
 
-<!--<form action="/search">-->
-<!--    <input placeholder="Search by Title..." type="text" name="search">-->
-<!--    <button type="submit">Search</button>-->
-<!--</form>-->
 <form>
     <input placeholder="Search by Title..." name="search" type="text"/>
     <input type="submit" value="Search"/>
@@ -25,9 +21,7 @@
     <tr>
         <th>#</th>
         <th>Title</th>
-        <th>Writer</th>
         <th>Category</th>
-        <th>Date</th>
         <th>Edit</th>
         <th>Delete</th>
         <th>View</th>
@@ -36,10 +30,8 @@
     <tr th:each="blog, status : ${blogList}">
         <td th:text="${blogList.number * 5 + status.count}"></td>
         <td th:text="${blog.title}"></td>
-        <td th:text="${blog.writer}"></td>
         <td th:if="${blog.category}" th:text="${blog.category.categoryName}"></td>
         <td th:unless="${blog.category}">non</td>
-        <td th:text="${blog.dateCreated}"></td>
         <td><a th:href="@{/edit/__${blog.id}__}">edit</a></td>
         <td><a th:href="@{/delete/__${blog.id}__}">delete</a></td>
         <td><a th:href="@{/view/__${blog.id}__}">view</a></td>

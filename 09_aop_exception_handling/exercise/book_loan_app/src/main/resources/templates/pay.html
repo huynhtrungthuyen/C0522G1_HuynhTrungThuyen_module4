@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create blog</title>
+</head>
+<body>
+<h1>Trả sách</h1>
+
+<p><a href="/">Quay lại trang danh sách</a></p>
+
+<form th:action="@{/pay}" method="post">
+    <input placeholder="Nhập mã mượn sách..." type="text" name="id">
+
+    <button type="submit">Trả sách</button>
+</form>
+</body>
+</html>

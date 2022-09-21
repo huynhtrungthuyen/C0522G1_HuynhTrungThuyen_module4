@@ -1,8 +1,6 @@
 package com.example.controller;
 
-import com.example.model.Blog;
 import com.example.model.Category;
-import com.example.service.IBlogService;
 import com.example.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,13 +20,13 @@ public class CategoryController {
     public String showList(Model model) {
         List<Category> categoryList = iCategoryService.findAll();
         model.addAttribute("categoryList", categoryList);
-        return "/list_category";
+        return "category/list_category";
     }
 
     @GetMapping("/add")
     public String create(Model model) {
         model.addAttribute("category", new Category());
-        return "/create_category";
+        return "category/create_category";
     }
 
     @PostMapping("/save")
@@ -41,7 +39,7 @@ public class CategoryController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
         model.addAttribute("category", iCategoryService.findById(id));
-        return "/edit_category";
+        return "category/edit_category";
     }
 
     @PostMapping("/update")
@@ -54,7 +52,7 @@ public class CategoryController {
     @GetMapping("/delete/{id}")
     private String delete(@PathVariable int id, Model model) {
         model.addAttribute("category", iCategoryService.findById(id));
-        return "/delete_category";
+        return "category/delete_category";
     }
 
     @PostMapping("/delete")
@@ -63,10 +61,4 @@ public class CategoryController {
         redirectAttributes.addFlashAttribute("mess", "Remove successful!");
         return "redirect:/category";
     }
-
-//    @GetMapping("/view/{id}")
-//    public String view(@PathVariable int id, Model model) {
-//        model.addAttribute("category", iCategoryService.findById(id));
-//        return "/view";
-//    }
 }
