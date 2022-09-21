@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.example.model.Music;
-import com.example.model.MusicDto;
+import com.example.dto.MusicDto;
 import com.example.service.IMusicService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

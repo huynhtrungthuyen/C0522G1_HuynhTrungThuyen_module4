@@ -1,11 +1,9 @@
-package com.example.model;
+package com.example.dto;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class UserDto implements Validator {
     private int id;
@@ -23,13 +21,11 @@ public class UserDto implements Validator {
     private String phoneNumber;
 
     @NotBlank(message = "Tuổi không được để trống.")
-    @Pattern(regexp = "^1[89]|[2-7]\\d|80$", message = "Tuổi phải từ 18-80.")
-//    @Min(value = 18, message = "Tuổi phải lớn hơn hoặc bằng 18.")
+    @Min(value = 18, message = "Tuổi phải lớn hơn hoặc bằng 18.")
     private String age;
 
     @NotBlank(message = "Email không được để trống.")
-    @Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]{2,}(\\.[A-Za-z0-9]{2,}){1,2}$",
-            message = "Email phải đúng định dạng.")
+    @Email(message = "Email phải đúng định dạng.")
     private String email;
 
     public UserDto() {
