@@ -8,7 +8,7 @@
 <h1>Ứng dụng mượn sách</h1>
 
 <th:block th:if="${message}">
-    <h4 style="color: green" th:text="${message}"></h4>
+    <p style="color: green" th:text="${message}"></p>
 </th:block>
 
 <table border="1" cellpadding="10">
@@ -27,7 +27,7 @@
         <td th:text="${item.category}"></td>
         <td th:text="${item.author}"></td>
         <td th:text="${item.quantity}"></td>
-        <td><a th:href="@{/detail/__${item.id}__}">Detail</a></td>
+        <td><a th:href="@{/info/__${item.id}__}">Mượn sách</a></td>
     </tr>
 </table>
 <br>

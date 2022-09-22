@@ -9,7 +9,7 @@
 
 <p><a href="/">Quay lại trang danh sách</a></p>
 
-<form th:action="@{/detail}" th:object="${book}" method="post">
+<form th:action="@{/borrow}" th:object="${book}" method="post">
     <input th:type="hidden" name="id" th:field="*{id}" readonly>
 
     <table>

@@ -9,8 +9,12 @@
 
 <p><a href="/">Quay lại trang danh sách</a></p>
 
+<th:block th:if="${message}">
+    <p style="color: red" th:text="${message}"></p>
+</th:block>
+
 <form th:action="@{/pay}" method="post">
-    <input placeholder="Nhập mã mượn sách..." type="text" name="id">
+    <input placeholder="Nhập mã mượn sách..." type="text" name="code">
 
     <button type="submit">Trả sách</button>
 </form>

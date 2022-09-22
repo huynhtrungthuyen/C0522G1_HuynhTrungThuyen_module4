@@ -1,6 +1,9 @@
 package com.example.controller;
 
+import com.example.exception.BookQuantityZeroException;
 import com.example.model.Book;
+import com.example.model.BookLoan;
+import com.example.service.IBookLoanService;
 import com.example.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,11 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class BookController {
     @Autowired
     private IBookService iBookService;
+
+    @Autowired
+    private IBookLoanService iBookLoanService;
 
     @GetMapping("")
     public String showList(Model model) {
@@ -22,22 +29,28 @@ public class BookController {
         return "/list";
     }
 
-    @GetMapping("/detail/{id}")
-    public String showDetail(@PathVariable int id, Model model) throws Exception {
+    @GetMapping("/info/{id}")
+    public String showFormBorrow(@PathVariable int id, Model model) throws BookQuantityZeroException {
         Book book = iBookService.findById(id);
         if (book.getQuantity() == 0) {
-            throw new Exception();
+            throw new BookQuantityZeroException();
         } else {
             model.addAttribute("book", book);
-            return "/detail";
+            return "borrow";
         }
     }
 
-    @PostMapping("/detail")
-    public String updateBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes) {
+    @PostMapping("/borrow")
+    public String getBorrowBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes) {
         book.setQuantity(book.getQuantity() - 1);
         iBookService.save(book);
-        redirectAttributes.addFlashAttribute("message", "Chúc mừng bạn đã mượn sách thành công!");
+
+        String loanCode = String.valueOf(new Random().nextInt(90000) + 10000);
+        BookLoan bookLoan = new BookLoan(book.getId(), loanCode);
+        iBookLoanService.save(bookLoan);
+
+        redirectAttributes.addFlashAttribute("message", "Bạn đã mượn thành công cuốn sách: "
+                + book.getName() + " --- Mã mượn sách: " + loanCode);
         return "redirect:/";
     }
 
@@ -47,16 +60,26 @@ public class BookController {
     }
 
     @PostMapping("/pay")
-    public String payBook(@RequestParam int id, RedirectAttributes redirectAttributes) {
-        Book book = iBookService.findById(id);
-        book.setQuantity(book.getQuantity() + 1);
-        iBookService.save(book);
-        redirectAttributes.addFlashAttribute("message", "Trả sách thành công!");
-        return "redirect:/";
+    public String getPayBook(@RequestParam String code, RedirectAttributes redirectAttributes) {
+        BookLoan bookLoan = iBookLoanService.findByCode(code);
+
+        if (bookLoan == null) {
+            redirectAttributes.addFlashAttribute("message",
+                    "Mã mượn sách không đúng, vui lòng nhập lại!");
+            return "redirect:/give-book-back";
+        } else {
+            Book book = iBookService.findById(bookLoan.getBookId());
+            book.setQuantity(book.getQuantity() + 1);
+            iBookService.save(book);
+            iBookLoanService.remove(bookLoan.getId());
+            redirectAttributes.addFlashAttribute("message", "Bạn đã trả thành công cuốn sách: "
+                    + book.getName());
+            return "redirect:/";
+        }
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(BookQuantityZeroException.class)
     public String showException() {
-        return "/error";
+        return "/errors";
     }
 }

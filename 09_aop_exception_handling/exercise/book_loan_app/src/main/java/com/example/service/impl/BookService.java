@@ -24,12 +24,7 @@ public class BookService implements IBookService {
     }
 
     @Override
-    public Book findById(int id) {
-        return iBookRepository.findById(id);
-    }
-
-    @Override
-    public void delete(int id) {
-        iBookRepository.deleteById(id);
+    public Book findById(Integer id) {
+        return iBookRepository.getById(id);
     }
 }

@@ -9,16 +9,16 @@ import javax.persistence.Id;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String category;
     private String author;
-    private int quantity;
+    private Integer quantity;
 
     public Book() {
     }
 
-    public Book(int id, String name, String category, String author, int quantity) {
+    public Book(Integer id, String name, String category, String author, Integer quantity) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -26,11 +26,11 @@ public class Book {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -58,11 +58,11 @@ public class Book {
         this.author = author;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }
