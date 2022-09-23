@@ -26,6 +26,18 @@ public class CartDto {
         }
     }
 
+    public void decreaseProduct(ProductDto productDto) {
+        if (productMap.containsKey(productDto)) {
+            Integer currentValue = productMap.get(productDto);
+
+            if (currentValue > 1) {
+                productMap.replace(productDto, currentValue - 1);
+            } else {
+                productMap.remove(productDto);
+            }
+        }
+    }
+
     public Double countTotalPayment() {
         double payment = 0;
         for (Map.Entry<ProductDto, Integer> entry : productMap.entrySet()) {

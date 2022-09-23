@@ -23,7 +23,7 @@
                     <th>Giá</th>
                     <th>Số lượng</th>
                     <th>Tổng tiền</th>
-                    <th>Xóa</th>
+                    <th colspan="3"></th>
                 </tr>
                 </thead>
 
@@ -36,16 +36,27 @@
                     <td th:text="${productMap.value}"></td>
                     <td th:text="${productMap.key.price * productMap.value}"></td>
                     <td>
+                        <a th:href="@{/shop/add/__${productMap.key.id}__}">
+                            <button class="btn btn-primary"> + </button>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/shop/decrease/__${productMap.key.id}__}">
+                            <button class="btn btn-warning"> - </button>
+                        </a>
+                    </td>
+                    <td>
                         <a th:href="@{/shop/delete/__${productMap.key.id}__}">
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger"> Xóa </button>
                         </a>
                     </td>
                 </tr>
+
                 <tr>
                     <td> - </td>
                     <th colspan="4">Tổng tiền của giỏ hàng:</th>
                     <th th:text="${cart.countTotalPayment()}"></th>
-                    <td> - </td>
+                    <td colspan="3"> - </td>
                 </tr>
                 </tbody>
             </table>
