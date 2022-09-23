@@ -23,7 +23,9 @@
                     <th>Giá</th>
                     <th>Số lượng</th>
                     <th>Tổng tiền</th>
-                    <th colspan="3"></th>
+                    <th>Tăng</th>
+                    <th>Giảm</th>
+                    <th>Xóa</th>
                 </tr>
                 </thead>
 
@@ -47,7 +49,7 @@
                     </td>
                     <td>
                         <a th:href="@{/shop/delete/__${productMap.key.id}__}">
-                            <button class="btn btn-danger"> Xóa </button>
+                            <button class="btn btn-danger"> x </button>
                         </a>
                     </td>
                 </tr>
@@ -56,7 +58,7 @@
                     <td> - </td>
                     <th colspan="4">Tổng tiền của giỏ hàng:</th>
                     <th th:text="${cart.countTotalPayment()}"></th>
-                    <td colspan="3"> - </td>
+                    <td colspan="3"></td>
                 </tr>
                 </tbody>
             </table>
