@@ -11,7 +11,7 @@ public class EducationDegree {
     private String educationDegreeName;
 
     @OneToMany(mappedBy = "educationDegree")
-    private Set<Employee> employee;
+    private Set<Employee> employees;
 
     public EducationDegree() {
     }
@@ -32,11 +32,11 @@ public class EducationDegree {
         this.educationDegreeName = educationDegreeName;
     }
 
-    public Set<Employee> getEmployee() {
-        return employee;
+    public Set<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setEmployee(Set<Employee> employee) {
-        this.employee = employee;
+    public void setEmployees(Set<Employee> employee) {
+        this.employees = employee;
     }
 }

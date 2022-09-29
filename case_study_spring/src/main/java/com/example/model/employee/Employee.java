@@ -10,7 +10,7 @@ public class Employee {
     private String employeeName;
     private String employeeBirthday;
     private String employeeIdCard;
-    private double employeeSalary;
+    private String employeeSalary;
     private String employeePhone;
     private String employeeEmail;
     private String employeeAddress;
@@ -66,11 +66,11 @@ public class Employee {
         this.employeeIdCard = employeeIdCard;
     }
 
-    public double getEmployeeSalary() {
+    public String getEmployeeSalary() {
         return employeeSalary;
     }
 
-    public void setEmployeeSalary(double employeeSalary) {
+    public void setEmployeeSalary(String employeeSalary) {
         this.employeeSalary = employeeSalary;
     }
 

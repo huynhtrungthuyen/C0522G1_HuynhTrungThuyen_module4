@@ -14,23 +14,24 @@ public class EmployeeDto implements Validator {
     private Integer employeeId;
 
     @NotBlank(message = "Tên không được để trống.")
-    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$",
-            message = "Tên nhân viên không được chứa số. Và các kí tự đầu tiên của mỗi từ phải viết hoa.")
+    @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$",
+            message = "Tên nhân viên không được chứa số, và các kí tự đầu tiên của mỗi từ phải viết hoa.")
     private String employeeName;
 
     @NotBlank(message = "Ngày sinh không được để trống.")
     private String employeeBirthday;
 
     @NotBlank(message = "Số CMND/CCCD không được để trống.")
-    @Pattern(regexp = "^(\\d{9}|\\d{12})$",
+    @Pattern(regexp = "^(\\d{9}|\\d{12})| *$",
             message = "Số CMND/CCCD phải đúng định dạng XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9).")
     private String employeeIdCard;
 
     @NotBlank(message = "Lương không được để trống.")
-    private double employeeSalary;
+    @Pattern(regexp = "^[1-9]\\d*| *$", message = "Lương (VNĐ) phải là số nguyên dương.")
+    private String employeeSalary;
 
     @NotBlank(message = "Số điện thoại không được để trống.")
-    @Pattern(regexp = "^(0|84[+])9[01]\\d{7}$", message =
+    @Pattern(regexp = "^((0|[(]84[)][+])9[01]\\d{7})| *$", message =
             "Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.")
     private String employeePhone;
 
@@ -79,11 +80,11 @@ public class EmployeeDto implements Validator {
         this.employeeIdCard = employeeIdCard;
     }
 
-    public double getEmployeeSalary() {
+    public String getEmployeeSalary() {
         return employeeSalary;
     }
 
-    public void setEmployeeSalary(double employeeSalary) {
+    public void setEmployeeSalary(String employeeSalary) {
         this.employeeSalary = employeeSalary;
     }
 

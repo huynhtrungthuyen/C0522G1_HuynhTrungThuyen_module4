@@ -18,25 +18,30 @@
 
         a {
             text-decoration: none;
+            color: lightcyan;
         }
 
         a:hover {
             text-decoration: underline;
+            color: lightcyan;
         }
 
-        .bodyCustomer {
-            background-image: url("https://i.pinimg.com/originals/86/41/6d/86416d71cbd1e608a5304bb92fc235ea.png");
-        }
-
-        .formAddCus{
+        .formCSS {
             background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v960-ning-30.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=63dd5f402645ef52fb7dfb592aec765a");
         }
 
-        /*.footer {*/
-        /*    !*position: absolute;*!*/
-        /*    !*bottom: 0;*!*/
-        /*    background-image: url("https://wallpaperaccess.com/full/3953563.jpg");*/
-        /*}*/
+        body {
+            background-image: url("https://images.hdqwalls.com/download/dark-space-minimal-art-4k-ll-2560x1440.jpg");
+        }
+
+        input:invalid {
+            border: 1px solid red;
+        }
+
+        input:valid {
+            border: 1px solid green;
+        }
+
         /*.left {*/
         /*    overflow: hidden;*/
         /*    height: 520px;*/
@@ -47,13 +52,10 @@
         /*.zoom:hover {*/
         /*    transform: scale(1.2);*/
         /*}*/
-        /*.body {*/
-        /*    background-image: url("https://media.istockphoto.com/photos/abstract-blur-blue-gradient-color-background-with-bokeh-round-light-picture-id1310553941?b=1&k=20&m=1310553941&s=170667a&w=0&h=ceXJ-ZDLHlygjY53FQTNp5xpQ9lqRCkjD-RMJGUSvp0=");*/
-        /*}*/
     </style>
 </head>
 <body>
-<header th:fragment="header">
+<header th:fragment="header" class="sticky-top">
     <div class="container-fluid bg-gray-500 d-flex header" style="height: 100px">
         <img class="h-100 p-4" src="https://www.furama.com/images/LOGOFurama_4C_Normal.png" alt="">
         <img class="ms-5 ps-5"
@@ -67,7 +69,9 @@
 
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid mx-5">
-            <a class="navbar-brand font-weight-bold" href="/">Trang chủ</a>
+            <a class="navbar-brand font-weight-bold" th:href="@{/}">
+                <i class="fa-solid fa-house-chimney h5 mx-1"></i> Trang chủ
+            </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -81,9 +85,11 @@
                         <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">Nhân viên</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/employee">Danh sách nhân viên</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/employee/create">Thêm nhân viên mới</a></li>
+                            <li><a class="dropdown-item" th:href="@{/employee}">Danh sách nhân viên</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/employee/create}">Thêm nhân viên mới</a></li>
                         </ul>
                     </li>
 
@@ -91,9 +97,11 @@
                         <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">Khách hàng</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/customer">Danh sách khách hàng</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/customer/create">Thêm khách hàng mới</a></li>
+                            <li><a class="dropdown-item" th:href="@{/customer}">Danh sách khách hàng</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/customer/create}">Thêm khách hàng mới</a></li>
                         </ul>
                     </li>
 
@@ -101,9 +109,11 @@
                         <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">Dịch vụ</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/facility">Danh sách dịch vụ</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/facility/create">Thêm dịch vụ mới</a></li>
+                            <li><a class="dropdown-item" th:href="@{/facility}">Danh sách dịch vụ</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/facility/create}">Thêm dịch vụ mới</a></li>
                         </ul>
                     </li>
 
@@ -111,9 +121,11 @@
                         <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">Hợp đồng</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/contract">Danh sách hợp đồng</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/contract/create">Thêm hợp đồng mới</a></li>
+                            <li><a class="dropdown-item" th:href="@{/contract}">Danh sách hợp đồng</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" th:href="@{/contract/create}">Thêm hợp đồng mới</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -124,7 +136,7 @@
 
 <footer th:fragment="footer">
     <div class="container-fluid text-center footer mt-5" style="height: 50px">
-        <strong class="text-dark pt-2">&copy;FURAMA - chính thức hoạt động từ năm 1997.</strong>
+        <strong class="text-light pt-2">&copy;FURAMA - chính thức hoạt động từ năm 1997.</strong>
     </div>
 </footer>
 </body>

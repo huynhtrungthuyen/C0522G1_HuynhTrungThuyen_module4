@@ -11,12 +11,12 @@ public class Divisions {
     private String divisionName;
 
     @OneToMany(mappedBy = "divisions")
-    private Set<Employee> employee;
+    private Set<Employee> employees;
 
     public Divisions() {
     }
 
-    public int getDivisionId() {
+    public Integer getDivisionId() {
         return divisionId;
     }
 
@@ -32,11 +32,11 @@ public class Divisions {
         this.divisionName = divisionName;
     }
 
-    public Set<Employee> getEmployee() {
-        return employee;
+    public Set<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setEmployee(Set<Employee> employee) {
-        this.employee = employee;
+    public void setEmployees(Set<Employee> employee) {
+        this.employees = employee;
     }
 }

@@ -11,7 +11,7 @@ public class CustomerType {
     private String customerTypeName;
 
     @OneToMany(mappedBy = "customerType")
-    private Set<Customer> customer;
+    private Set<Customer> customers;
 
     public CustomerType() {
     }
@@ -32,11 +32,11 @@ public class CustomerType {
         this.customerTypeName = customerTypeName;
     }
 
-    public Set<Customer> getCustomer() {
-        return customer;
+    public Set<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setCustomer(Set<Customer> customer) {
-        this.customer = customer;
+    public void setCustomers(Set<Customer> customer) {
+        this.customers = customer;
     }
 }

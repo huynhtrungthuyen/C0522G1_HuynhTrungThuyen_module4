@@ -37,11 +37,6 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Page<Customer> findAll(Pageable pageable) {
-        return iCustomerRepository.findAll(pageable);
-    }
-
-    @Override
     public void deleteLogical(Integer id) {
         iCustomerRepository.deleteLogical(id);
     }

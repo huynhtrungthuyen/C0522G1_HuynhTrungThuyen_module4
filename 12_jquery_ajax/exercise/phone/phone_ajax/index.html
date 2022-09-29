@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="divAdd">
+    <table>
+        <tr>
+            <td>Producer:</td>
+            <td><input type="text" id="producer" placeholder="producer"></td>
+        </tr>
+        <tr>
+            <td>Model:</td>
+            <td><input type="text" id="model" placeholder="model"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="text" id="price" placeholder="price"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Add" onclick="addNewSmartPhone()"></td>
+        </tr>
+    </table>
+    <br>
+</div>
+
+<div id="divEdit">
+    <input type="hidden" id="id" value="">
+    <table>
+        <tr>
+            <td>Producer:</td>
+            <td><input type="text" id="producerEdit" placeholder="producer" value=""></td>
+        </tr>
+        <tr>
+            <td>Model:</td>
+            <td><input type="text" id="modelEdit" placeholder="model" value=""></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="text" id="priceEdit" placeholder="price" value=""></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button onclick="editSmartPhone()">Edit</button>
+            </td>
+        </tr>
+    </table>
+    <br>
+</div>
+
+<table class="list" border="1" cellpadding="10"></table>
+
+<script src="jquery/jquery-3.5.1.min.js"></script>
+<script>
+    $(window).on('load', function () {
+        displayList();
+    });
+
+    function displayList() {
+        $("#divEdit").hide();
+        $("#divAdd").show();
+        $(".list").init();
+        $.ajax({
+            url: "http://localhost:8080/smartphones/list",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                let tr = [];
+                $(".list").empty()
+                tr.push(`<tr><th>Id</th><th>Producer</th><th>Model</th><th>Price</th><th>Edit</th><th>Delete</th></tr>`)
+                for (let i = 0; i < data.length; i++) {
+                    tr.push("<tr>");
+                    tr.push("<td>" + data[i].id + "</td>");
+                    tr.push("<td>" + data[i].producer + "</td>");
+                    tr.push("<td>" + data[i].model + "</td>");
+                    tr.push("<td>" + data[i].price + "</td>");
+                    tr.push(`<td><button onclick="findById(` + data[i].id + `)">Edit</button></td>`);
+                    tr.push(`<td><button onclick="removeById(` + data[i].id + `)">Delete</button></td>`);
+                    tr.push("</tr>");
+                }
+                $(".list").append((tr.join("")));
+            }
+        })
+    }
+
+    function addNewSmartPhone() {
+        let producer = $('#producer').val();
+        let model = $('#model').val();
+        let price = $('#price').val();
+        let newSmartphone = {
+            producer: producer,
+            model: model,
+            price: price
+        };
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(newSmartphone),
+            url: "http://localhost:8080/smartphones",
+            success: displayList
+        });
+        event.preventDefault();
+    }
+
+    function findById(id) {
+        $("#divEdit").show();
+        $("#divAdd").hide();
+        $.ajax({
+            url: "http://localhost:8080/smartphones/" + id,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                debugger
+                document.getElementById("id").value = (data.id);
+                document.getElementById("producerEdit").value = (data.producer);
+                document.getElementById("modelEdit").value = (data.model);
+                document.getElementById("priceEdit").value = (data.price);
+            }
+        })
+    }
+
+    function editSmartPhone() {
+        let id = $("#id").val();
+        let producer = $('#producerEdit').val();
+        let model = $('#modelEdit').val();
+        let price = $('#priceEdit').val();
+        let newSmartphone = {
+            id: id,
+            producer: producer,
+            model: model,
+            price: price
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(newSmartphone),
+            url: "http://localhost:8080/smartphones",
+            success: displayList
+        })
+    }
+
+    function removeById(id) {
+        $.ajax({
+            url: "http://localhost:8080/smartphones/" + id,
+            type: "DELETE",
+            dataType: "json",
+            success: function () {
+                alert("Delete success!");
+                displayList();
+            }
+        })
+    }
+</script>
+</body>
+</html>

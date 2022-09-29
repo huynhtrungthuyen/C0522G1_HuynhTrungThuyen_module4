@@ -14,7 +14,7 @@ public class CustomerDto implements Validator {
 
     @NotBlank(message = "Tên không được để trống.")
     @Pattern(regexp = "^(([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5})| *$",
-            message = "Tên khách hàng không được chứa số. Và các kí tự đầu tiên của mỗi từ phải viết hoa.")
+            message = "Tên khách hàng không được chứa số, và các kí tự đầu tiên của mỗi từ phải viết hoa.")
     private String customerName;
 
     @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[0-1])$",
@@ -30,7 +30,7 @@ public class CustomerDto implements Validator {
     private String customerIdCard;
 
     @NotBlank(message = "Số điện thoại không được để trống.")
-    @Pattern(regexp = "^((0|84[+])9[01]\\d{7})| *$", message =
+    @Pattern(regexp = "^((0|[(]84[)][+])9[01]\\d{7})| *$", message =
             "Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx.")
     private String customerPhone;
 
