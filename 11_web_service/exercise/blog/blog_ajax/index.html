@@ -28,64 +28,7 @@
 
 <script src="jquery/jquery-3.5.1.min.js"></script>
 <script>
-    function loadPage() {
-        $.ajax({
-            url: "http://localhost:8080/api/blog/v1",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                let tr = [];
-                $("table").empty();
-
-                for (let i = 0; i < data.length; i++) {
-                    tr.push("<tr>");
-                    tr.push("<td>" + (i + 1) + "</td>");
-                    tr.push("<td>" + data[i].title + "</td>");
-                    tr.push("<td>" + data[i].writer + "</td>");
-                    tr.push("<td>" + data[i].dateCreated + "</td>");
-                    tr.push("<td>" + data[i].category.categoryName + "</td>");
-                    tr.push("</tr>");
-                }
-                $("table").append((tr.join("")));
-            }
-        })
-    }
-
-    $(document).ready(function () {
-        $(".load").empty();
-        $.ajax({
-            url: "http://localhost:8080/api/blog/v1",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                let tr = [];
-                let x;
-                if (data.length <= 5) {
-                    x = data.length;
-                } else {
-                    x = 5;
-                }
-
-                for (let i = 0; i < x; i++) {
-                    tr.push("<tr>");
-                    tr.push("<td>" + (i + 1) + "</td>");
-                    tr.push("<td>" + data[i].title + "</td>");
-                    tr.push("<td>" + data[i].writer + "</td>");
-                    tr.push("<td>" + data[i].dateCreated + "</td>");
-                    tr.push("<td>" + data[i].category.categoryName + "</td>");
-                    tr.push("</tr>");
-                }
-                $("table").append(tr.join(""));
-            }
-        })
-
-        $("#next").click(function () {
-            loadPage();
-        })
-    })
-
-    $("#find").click(function () {
-        value = $("#search").val();
+    function showList(value, page) {
         $("table").empty();
         $.ajax({
             url: "http://localhost:8080/api/blog/v1/?search=" + value,
@@ -93,14 +36,12 @@
             dataType: "json",
             success: function (data) {
                 let tr = [];
-                let x;
-                if (data.length <= 5) {
-                    x = data.length;
-                } else {
-                    x = 5;
+                let num = 5 * page;
+                if (data.length < num) {
+                    num = data.length;
                 }
 
-                for (let i = 0; i < x; i++) {
+                for (let i = 0; i < num; i++) {
                     tr.push("<tr>");
                     tr.push("<td>" + (i + 1) + "</td>");
                     tr.push("<td>" + data[i].title + "</td>");
@@ -112,9 +53,22 @@
                 $("table").append(tr.join(""));
             }
         })
+    }
+
+    $(document).ready(function () {
+        let titleSearch = "";
+        let numPage = 1;
+        showList(titleSearch, numPage);
+
+        $("#find").click(function () {
+            titleSearch = $("#search").val();
+            numPage = 1;
+            showList(titleSearch, numPage);
+        })
 
         $("#next").click(function () {
-            loadPage()
+            numPage++;
+            showList(titleSearch, numPage);
         })
     })
 </script>
