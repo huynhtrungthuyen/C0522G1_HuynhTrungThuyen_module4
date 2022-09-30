@@ -144,8 +144,7 @@
 
 <footer th:replace="~{/home::footer}"></footer>
 
-<div class="modal fade" id="deleteEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1"
-     aria-hidden="true">
+<div class="modal fade" id="deleteEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -168,8 +167,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="viewEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1"
-     aria-hidden="true">
+<div class="modal fade" id="viewEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -238,14 +236,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1"
-     aria-hidden="true">
+<div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form class="border border-2 border-success p-3 rounded formCSS" th:action="@{/employee/add}"
                   th:object="${employeeDto}" method="POST">
                 <div class="modal-header">
-                    <h2 class="modal-title text-center" id="exampleModalLabel3">Thêm mới nhân viên</h2>
+                    <h3 class="modal-title fw-bold" id="exampleModalLabel3">THÊM MỚI NHÂN VIÊN</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
