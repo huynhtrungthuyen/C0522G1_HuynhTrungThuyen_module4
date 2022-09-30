@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/layout::head}">
+<head th:replace="~{/home::head}">
     <meta charset="UTF-8">
     <title>Danh sách nhân viên</title>
 
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 </head>
 <body>
-<div th:replace="~{/layout::header}"></div>
+<div th:replace="~{/home::header}"></div>
 
 <div class="p-3">
     <h2 class="text-center fw-bold text-light">DANH SÁCH NHÂN VIÊN</h2>
@@ -29,12 +29,11 @@
 
     <nav class="navbar navbar-expand-lg py-0 my-0">
         <div class="container-fluid">
-            <a th:href="@{/employee/create}">
-                <button class="btn btn-primary btn-outline-secondary btn-sm">
-                    <span class="fa-solid fa-person-circle-plus text-light h5 my-auto me-1"></span>
-                    <span class="text-light"> Thêm mới nhân viên</span>
-                </button>
-            </a>
+            <button class="btn btn-primary btn-outline-secondary btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#addEmployee">
+                <span class="fa-solid fa-person-circle-plus text-light h5 my-auto me-1"></span>
+                <span class="text-light"> Thêm mới nhân viên</span>
+            </button>
 
             <form class="d-flex my-2" role="search" th:action="@{/employee}">
                 <input class="form-control me-2" type="text" placeholder="Nhập tên.." aria-label="Search"
@@ -143,7 +142,7 @@
     </nav>
 </div>
 
-<footer th:replace="~{/layout::footer}"></footer>
+<footer th:replace="~{/home::footer}"></footer>
 
 <div class="modal fade" id="deleteEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1"
      aria-hidden="true">
@@ -235,6 +234,134 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="border border-2 border-success p-3 rounded formCSS" th:action="@{/employee/add}"
+                  th:object="${employeeDto}" method="POST">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="exampleModalLabel3">Thêm mới nhân viên</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nameAdd" class="h6">Tên nhân viên:</label>
+                        <p style="color: red" th:if="${#fields.hasErrors('employeeName')}"
+                           th:errors="*{employeeName}"></p>
+                        <div class="input-group">
+                            <input type="text" id="nameAdd" class="form-control" placeholder="Nhập tên nhân viên.."
+                                   th:field="*{employeeName}" required
+                                   pattern="^([\p{Lu}][\p{Ll}]{1,8})(\s([\p{Lu}]|[\p{Lu}][\p{Ll}]{1,10})){0,5}$"
+                                   title="Tên nhân viên không được chứa số, và các kí tự đầu tiên của mỗi từ phải viết hoa."/>
+                            <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label for="dateOfBirth" class="h6">Ngày sinh:</label>
+                        <p style="color: red" th:if="${#fields.hasErrors('employeeBirthday')}"
+                           th:errors="*{employeeBirthday}"></p>
+                        <input type="date" id="dateOfBirth" class="form-control" th:field="*{employeeBirthday}"
+                               th:min="${minAge}" th:max="${maxAge}"/>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label for="idCardAdd" class="h6">Số CMND/CCCD:</label>
+                        <div class="input-group">
+                            <input type="text" id="idCardAdd" class="form-control" placeholder="Nhập số CMND/CCCD.."
+                                   th:field="*{employeeIdCard}" required pattern="^\d{9}|\d{12}$"
+                                   title="Số CMND/CCCD phải đúng định dạng XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9)."/>
+                            <span class="input-group-text"><i class="fa-solid fa-id-card"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label for="salaryAdd" class="h6">Lương (VNĐ):</label>
+                        <div class="input-group">
+                            <input type="number" id="salaryAdd" class="form-control" placeholder="Nhập lương..."
+                                   th:field="*{employeeSalary}" required pattern="^[1-9]\d*$"
+                                   title="Lương (VNĐ) phải là số nguyên dương."/>
+                            <span class="input-group-text"><i class="fa-solid fa-money-bill-wave"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label for="phoneAdd" class="h6">Số điện thoại:</label>
+                        <div class="input-group">
+                            <input type="text" id="phoneAdd" class="form-control" placeholder="Nhập SĐT.."
+                                   th:field="*{employeePhone}" required pattern="^(0|[(]84[)][+])9[01]\d{7}$"
+                                   title="Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx."/>
+                            <span class="input-group-text"><i class="fa-solid fa-square-phone"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label for="emailAdd" class="h6">Email:</label>
+                        <div class="input-group">
+                            <input type="text" id="emailAdd" class="form-control" placeholder="Nhập email.."
+                                   th:field="*{employeeEmail}" required
+                                   pattern="^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]{2,}(\.[A-Za-z0-9]{2,}){1,2}$"
+                                   title="Địa chỉ email phải đúng định dạng."/>
+                            <span class="input-group-text"><i class="fa-solid fa-envelope-circle-check"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label for="addressAdd" class="h6">Địa chỉ:</label>
+                        <div class="input-group">
+                            <input type="text" id="addressAdd" class="form-control" placeholder="Nhập địa chỉ.."
+                                   th:field="*{employeeAddress}" required pattern="^.+$"
+                                   title="Vui lòng không để trống địa chỉ."/>
+                            <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label class="h6" for="positionAdd">Vị trí:</label>
+                        <div class="input-group">
+                            <select id="positionAdd" class="form-control" th:field="*{position.positionId}">
+                                <option th:each="item : ${positionList}" th:value="${item.positionId}"
+                                        th:text="${item.positionName}"></option>
+                            </select>
+                            <span class="input-group-text"><i class="fa-solid fa-map"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label class="h6" for="educationDegreeAdd">Trình độ học vấn:</label>
+                        <div class="input-group">
+                            <select id="educationDegreeAdd" class="form-control"
+                                    th:field="*{educationDegree.educationDegreeId}">
+                                <option th:each="item : ${educationDegreeList}" th:value="${item.educationDegreeId}"
+                                        th:text="${item.educationDegreeName}"></option>
+                            </select>
+                            <span class="input-group-text"><i class="fa-solid fa-graduation-cap"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 form-group">
+                        <label class="h6" for="divisionAdd">Bộ phận:</label>
+                        <div class="input-group">
+                            <select id="divisionAdd" class="form-control" th:field="*{divisions.divisionId}">
+                                <option th:each="item : ${divisionList}" th:value="${item.divisionId}"
+                                        th:text="${item.divisionName}"></option>
+                            </select>
+                            <span class="input-group-text"><i class="fa-brands fa-creative-commons-nd"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-success" value="delete">Lưu</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

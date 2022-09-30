@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/layout::head}">
+<head th:replace="~{/home::head}">
     <meta charset="UTF-8">
     <title>Danh sách khách hàng</title>
 
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 </head>
 <body>
-<div th:replace="~{/layout::header}"></div>
+<div th:replace="~{/home::header}"></div>
 
 <div class="p-3">
     <h2 class="text-center fw-bold text-light">DANH SÁCH KHÁCH HÀNG</h2>
@@ -149,7 +149,7 @@
     </nav>
 </div>
 
-<footer th:replace="~{/layout::footer}"></footer>
+<footer th:replace="~{/home::footer}"></footer>
 
 <div class="modal fade" id="deleteCustomer" tabindex="-1" aria-labelledby="exampleModalLabel1"
      aria-hidden="true">

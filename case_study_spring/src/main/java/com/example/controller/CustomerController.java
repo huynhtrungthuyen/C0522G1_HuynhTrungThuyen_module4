@@ -77,7 +77,6 @@ public class CustomerController {
             }
         }
 
-
         if (bindingResult.hasFieldErrors() || isDuplicateIdCard) {
             model.addAttribute("customerTypeList", iCustomerTypeService.findAll());
 

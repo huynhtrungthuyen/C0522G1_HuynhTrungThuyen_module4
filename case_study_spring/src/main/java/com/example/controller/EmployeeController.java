@@ -57,6 +57,11 @@ public class EmployeeController {
         model.addAttribute("nameSearch", nameSearch);
         model.addAttribute("addressSearch", addressSearch);
         model.addAttribute("phoneSearch", phoneSearch);
+        model.addAttribute("employeeDto", new EmployeeDto());
+        LocalDate minAge = LocalDate.now().minusYears(80);
+        LocalDate maxAge = LocalDate.now().minusYears(18);
+        model.addAttribute("minAge", minAge);
+        model.addAttribute("maxAge", maxAge);
 
         return "employee/list";
     }
@@ -81,23 +86,10 @@ public class EmployeeController {
                        RedirectAttributes redirectAttributes, Model model) {
         new EmployeeDto().validate(employeeDto, bindingResult);
 
-
-        boolean isDuplicateIdCard = false;
-        for (Employee employee : iEmployeeService.findAll()) {
-            if (employeeDto.getEmployeeIdCard().equals(employee.getEmployeeIdCard())) {
-                isDuplicateIdCard = true;
-                break;
-            }
-        }
-
-        if (bindingResult.hasFieldErrors() || isDuplicateIdCard) {
+        if (bindingResult.hasFieldErrors()) {
             model.addAttribute("divisionList", iDivisionService.findAll());
             model.addAttribute("educationDegreeList", iEducationDegreeService.findAll());
             model.addAttribute("positionList", iPositionService.findAll());
-
-            if (isDuplicateIdCard) {
-                model.addAttribute("duplicateIdCard", "Số CMND/CCCD đã tồn tại, vui lòng kiểm tra lại.");
-            }
 
             LocalDate minAge = LocalDate.now().minusYears(80);
             LocalDate maxAge = LocalDate.now().minusYears(18);
@@ -145,25 +137,10 @@ public class EmployeeController {
                          RedirectAttributes redirectAttributes, Model model) {
         new EmployeeDto().validate(employeeDto, bindingResult);
 
-        boolean isDuplicateIdCard = false;
-        for (Employee employee : iEmployeeService.findAll()) {
-            if (employeeDto.getEmployeeIdCard().equals(employee.getEmployeeIdCard())) {
-                isDuplicateIdCard = true;
-                break;
-            }
-        }
-        if (employeeDto.getEmployeeIdCard().equals(iEmployeeService.findById(employeeDto.getEmployeeId()).get().getEmployeeIdCard())) {
-            isDuplicateIdCard = false;
-        }
-
-        if (bindingResult.hasFieldErrors() || isDuplicateIdCard) {
+        if (bindingResult.hasFieldErrors()) {
             model.addAttribute("divisionList", iDivisionService.findAll());
             model.addAttribute("educationDegreeList", iEducationDegreeService.findAll());
             model.addAttribute("positionList", iPositionService.findAll());
-
-            if (isDuplicateIdCard) {
-                model.addAttribute("duplicateIdCard", "Số CMND/CCCD đã tồn tại, vui lòng kiểm tra lại.");
-            }
 
             LocalDate minAge = LocalDate.now().minusYears(80);
             LocalDate maxAge = LocalDate.now().minusYears(18);
