@@ -1,6 +1,9 @@
 package com.example.model.customer;
 
+import com.example.model.contract.Contract;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Customer {
@@ -20,8 +23,8 @@ public class Customer {
     @JoinColumn(name= "customer_type_id",referencedColumnName = "customerTypeId")
     private CustomerType customerType;
 
-//    @OneToMany(mappedBy = "customer")
-//    private Set<Contract> contract;
+    @OneToMany(mappedBy = "customer")
+    private Set<Contract> contract;
 
     public Customer() {
     }
@@ -98,13 +101,13 @@ public class Customer {
         this.customerType = customerType;
     }
 
-//    public Set<Contract> getContract() {
-//        return contract;
-//    }
-//
-//    public void setContract(Set<Contract> contract) {
-//        this.contract = contract;
-//    }
+    public Set<Contract> getContract() {
+        return contract;
+    }
+
+    public void setContract(Set<Contract> contract) {
+        this.contract = contract;
+    }
 
     public boolean isDeleteStatus() {
         return deleteStatus;

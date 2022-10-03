@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "select * from employee where employee_name like %:nameSearch% and " +
@@ -16,6 +18,9 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
             nativeQuery = true)
     Page<Employee> searchEmployee(@Param("nameSearch") String nameSearch, @Param("addressSearch") String addressSearch,
                                   @Param("phoneSearch") String phoneSearch, Pageable pageable);
+
+    @Query(value = "select * from employee where delete_status = false", nativeQuery = true)
+    List<Employee> findAll();
 
     @Modifying
     @Query(value = "update employee set delete_status = true where employee_id = :idDelete", nativeQuery = true)

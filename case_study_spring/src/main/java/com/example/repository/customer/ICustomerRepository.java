@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "select * from customer where customer_name like %:nameSearch% and " +
@@ -16,6 +18,9 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
             nativeQuery = true)
     Page<Customer> searchCustomer(@Param("nameSearch") String nameSearch, @Param("addressSearch") String addressSearch,
                                   @Param("phoneSearch") String phoneSearch, Pageable pageable);
+
+    @Query(value = "select * from customer where delete_status = false", nativeQuery = true)
+    List<Customer> findAll();
 
     @Modifying
     @Query(value = "update customer set delete_status = true where customer_id = :idDelete", nativeQuery = true)

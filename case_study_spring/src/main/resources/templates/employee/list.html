@@ -12,11 +12,11 @@
 <div th:replace="~{/home::header}"></div>
 
 <div class="p-3">
-    <h2 class="text-center fw-bold text-light">DANH SÁCH NHÂN VIÊN</h2>
+    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH NHÂN VIÊN</h2>
 
-    <p class="text-center mt-3">
-        <a th:href="@{/}"><i class="fa-solid fa-house-chimney h5 mx-1"></i> Quay lại trang chủ</a>
-    </p>
+<!--    <p class="text-center mt-3">-->
+<!--        <a th:href="@{/}"><i class="fa-solid fa-house-chimney h5 mx-1"></i> Quay lại trang chủ</a>-->
+<!--    </p>-->
 
     <div th:if="${message}">
         <div class="justify-content-center d-flex">
@@ -146,7 +146,7 @@
 
 <div class="modal fade" id="deleteEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content modalCSS">
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel1">Bạn có chắc chắn muốn xóa?</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -169,7 +169,7 @@
 
 <div class="modal fade" id="viewEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content modalCSS">
             <div class="modal-header">
                 <h4 class="modal-title text-center" id="exampleModalLabel2">Thông tin nhân viên</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -242,15 +242,13 @@
             <form class="border border-2 border-success p-3 rounded formCSS" th:action="@{/employee/add}"
                   th:object="${employeeDto}" method="POST">
                 <div class="modal-header">
-                    <h3 class="modal-title fw-bold" id="exampleModalLabel3">THÊM MỚI NHÂN VIÊN</h3>
+                    <h3 class="modal-title fw-bold text-primary" id="exampleModalLabel3">THÊM MỚI NHÂN VIÊN</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nameAdd" class="h6">Tên nhân viên:</label>
-                        <p style="color: red" th:if="${#fields.hasErrors('employeeName')}"
-                           th:errors="*{employeeName}"></p>
                         <div class="input-group">
                             <input type="text" id="nameAdd" class="form-control" placeholder="Nhập tên nhân viên.."
                                    th:field="*{employeeName}" required
@@ -262,8 +260,6 @@
 
                     <div class="mt-3 form-group">
                         <label for="dateOfBirth" class="h6">Ngày sinh:</label>
-                        <p style="color: red" th:if="${#fields.hasErrors('employeeBirthday')}"
-                           th:errors="*{employeeBirthday}"></p>
                         <input type="date" id="dateOfBirth" class="form-control" th:field="*{employeeBirthday}"
                                th:min="${minAge}" th:max="${maxAge}"/>
                     </div>

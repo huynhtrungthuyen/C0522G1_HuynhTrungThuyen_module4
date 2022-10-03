@@ -12,11 +12,11 @@
 <div th:replace="~{/home::header}"></div>
 
 <div class="p-3">
-    <h2 class="text-center fw-bold text-light">DANH SÁCH KHÁCH HÀNG</h2>
+    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH KHÁCH HÀNG</h2>
 
-    <p class="text-center mt-3">
-        <a th:href="@{/}"><i class="fa-solid fa-house-chimney h5 mx-1"></i> Quay lại trang chủ</a>
-    </p>
+<!--    <p class="text-center mt-3">-->
+<!--        <a th:href="@{/}"><i class="fa-solid fa-house-chimney h5 mx-1"></i> Quay lại trang chủ</a>-->
+<!--    </p>-->
 
     <div th:if="${message}">
         <div class="justify-content-center d-flex">
@@ -154,7 +154,7 @@
 <div class="modal fade" id="deleteCustomer" tabindex="-1" aria-labelledby="exampleModalLabel1"
      aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content modalCSS">
             <div class="modal-header">
                 <h4 class="modal-title" id="exampleModalLabel1">Bạn có chắc chắn muốn xóa?</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -178,7 +178,7 @@
 <div class="modal fade" id="viewCustomer" tabindex="-1" aria-labelledby="exampleModalLabel1"
      aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content modalCSS">
             <div class="modal-header">
                 <h4 class="modal-title text-center" id="exampleModalLabel2">Thông tin khách hàng</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -245,9 +245,9 @@
     function viewCustomer(name, birthday, gender, idCard, phone, email, address, type) {
         document.getElementById("name").innerText = name;
         document.getElementById("birthday").innerText = birthday;
-        if (gender === 0) {
+        if (gender == 0) {
             document.getElementById("gender").innerText = "Nam";
-        } else if (gender === 1) {
+        } else if (gender == 1) {
             document.getElementById("gender").innerText = "Nữ";
         } else {
             document.getElementById("gender").innerText = "LGBT";
