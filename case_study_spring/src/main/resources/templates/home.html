@@ -13,17 +13,17 @@
 
     <style>
         .header {
-            background-image: url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000");
+            background-image: url("https://i.pinimg.com/originals/86/41/6d/86416d71cbd1e608a5304bb92fc235ea.png");
         }
 
         a {
             text-decoration: none;
-            color: lightcyan;
+            color: #9ec7fa;
         }
 
         a:hover {
             text-decoration: underline;
-            color: lightcyan;
+            color: #9ec7fa;
         }
 
         .formCSS {
@@ -46,16 +46,18 @@
             border: 1px solid green;
         }
 
-        /*.left {*/
-        /*    overflow: hidden;*/
-        /*    height: 520px;*/
-        /*}*/
-        /*.left:hover {*/
-        /*    overflow: scroll;*/
-        /*}*/
-        /*.zoom:hover {*/
-        /*    transform: scale(1.2);*/
-        /*}*/
+        .left {
+            overflow: hidden;
+            height: 600px;
+        }
+
+        .left:hover {
+            overflow: scroll;
+        }
+
+        .zoom:hover {
+            transform: scale(1.3);
+        }
     </style>
 </head>
 <body>
@@ -137,6 +139,48 @@
         </div>
     </nav>
 </header>
+
+<div class="container-fluid body" style="height: 480px">
+    <div class="row mx-3 pt-3">
+        <div class="col-2 left">
+            <p class="text-light h5 mb-4">TOP KHÁCH HÀNG tháng 10/2022</p>
+
+            <p class="ms-2 mt-2 text-light">1. Hồ Thị Thủy Lợi</p>
+            <img class="img-fluid zoom border border-danger border-2" src="https://andy.codegym.vn/storage/images/avatars/fe4ef841c2aa37ea4058a39b62342083.jpeg" alt="">
+
+            <p class="ms-2 mt-4 text-light">2. Phạm Đạt</p>
+            <img class="img-fluid zoom border border-warning border-2" src="https://andy.codegym.vn/storage/images/avatars/ed8e5cd27c9b6e42aff7348d37df70ca.jpeg" alt="">
+
+            <p class="ms-2 mt-4 text-light">3. Đặng Thị Thủy Tiên</p>
+            <img class="img-fluid zoom border border-danger border-2" src="https://andy.codegym.vn/storage/images/avatars/38cba5c3296a2935a26f2dc896be48e2.jpeg" alt="">
+
+            <p class="ms-2 mt-4 text-light">4. Huỳnh Văn Nam</p>
+            <img class="img-fluid zoom border border-warning border-2" src="https://andy.codegym.vn/storage/images/avatars/4b22363302c221ade7b15b2e723febea.jpeg" alt="">
+
+            <p class="ms-2 mt-2 text-light">5. Nguyễn Tấn Huân</p>
+            <img class="img-fluid zoom border border-danger border-2" src="https://andy.codegym.vn/storage/images/avatars/e791353a34ddf7bdd5f3e0ce61db6108.jpeg" alt="">
+
+            <p class="ms-2 mt-4 text-light">6. Bùi Hùng</p>
+            <img class="img-fluid zoom border border-warning border-2" src="https://andy.codegym.vn/storage/images/avatars/e3564fafb5098fee1f4de7f534895abe.jpeg" alt="">
+
+            <p class="ms-2 mt-4 text-light">7. Đặng Ngọc Huy</p>
+            <img class="img-fluid zoom border border-danger border-2" src="https://andy.codegym.vn/storage/images/avatars/dccbc38e4d63721e3c68b755cc835815.jpeg" alt="">
+
+            <p class="ms-2 mt-4 text-light">8. Hà Bảo Ân</p>
+            <img class="img-fluid zoom border border-warning border-2" src="https://andy.codegym.vn/storage/images/avatars/701964623b31d1a5f4d07079c5d67e4a.jpeg" alt="">
+
+            <p class="ms-2 mt-4 text-light">9. Nguyễn Duy Quyết</p>
+            <img class="img-fluid zoom border border-danger border-2" src="https://andy.codegym.vn/storage/images/avatars/593ce0d360800a9305a85f23f2ed7a06.jpeg" alt="">
+
+            <p class="ms-2 mt-4 text-light">10. Nguyễn Văn Phúc</p>
+            <img class="img-fluid zoom border border-warning border-2" src="https://andy.codegym.vn/storage/images/avatars/ae23548049f8654635bcdb639653445c.jpeg" alt="">
+        </div>
+
+        <div class="col-10">
+            <img class="img-fluid mt-4 ms-2 border border-4 border-light" src="http://ngocdiep.vn/wp-content/uploads/2020/12/4.flamigo-cat-ba.jpg" alt="">
+        </div>
+    </div>
+</div>
 
 <footer th:fragment="footer">
     <div class="container-fluid text-center footer mt-5" style="height: 50px">

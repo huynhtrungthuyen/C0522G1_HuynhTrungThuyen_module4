@@ -12,11 +12,7 @@
 <div th:replace="~{/home::header}"></div>
 
 <div class="p-3">
-    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH HỌP ĐỒNG</h2>
-
-    <!--    <p class="text-center mt-3">-->
-    <!--        <a th:href="@{/}"><i class="fa-solid fa-house-chimney h5 mx-1"></i> Quay lại trang chủ</a>-->
-    <!--    </p>-->
+    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH HỢP ĐỒNG</h2>
 
     <div th:if="${message}">
         <div class="justify-content-center d-flex">
@@ -31,7 +27,7 @@
         <div class="container-fluid">
             <button class="btn btn-primary btn-outline-secondary btn-sm" data-bs-toggle="modal"
                     data-bs-target="#addContract">
-                <span class="fa-solid fa-person-circle-plus text-light h5 my-auto me-1"></span>
+                <span class="fa-solid fa-plus text-light h6 my-auto me-1"></span>
                 <span class="text-light"> Thêm mới hợp đồng</span>
             </button>
         </div>
@@ -66,11 +62,11 @@
                     <span class="fa-solid fa-plus text-light h6 m-auto"></span>
                 </button>
 
-                <button th:attr="onclick=|showAttachFacility('${contract.contractId}')|"
-                        class="btn btn-primary btn-outline-secondary btn-sm ms-3 px-3" data-bs-toggle="modal"
-                        data-bs-target="#showAttachFacility">
-                    <span class="text-light m-auto">Danh sách dịch vụ đi kèm</span>
-                </button>
+                <a th:href="@{/contract/__${contract.contractId}__}">
+                    <button class="btn btn-primary btn-outline-secondary btn-sm ms-3 px-3">
+                        <span class="text-light m-auto">Danh sách dịch vụ đi kèm</span>
+                    </button>
+                </a>
             </td>
         </tr>
     </table>
@@ -128,7 +124,8 @@
                             <div class="input-group">
                                 <select id="facility" class="form-control" th:field="*{facility.facilityId}">
                                     <option th:each="item : ${facilityList}" th:value="${item.facilityId}"
-                                            th:text="${item.facilityName}"></option>
+                                            th:text="${item.facilityName}"
+                                            th:if="${item.facilityType.facilityTypeId != 3}"></option>
                                 </select>
                                 <span class="input-group-text"><i class="fa-solid fa-file-signature"></i></span>
                             </div>
@@ -207,7 +204,8 @@
 
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="hidden" name="contractId" id="contractId" th:field="*{contract.contractId}" readonly/>
+                        <input type="hidden" name="contractId" id="contractId" th:field="*{contract.contractId}"
+                               readonly/>
 
                         <div class="form-group">
                             <label class="h6" for="attachFacility">Tên dịch vụ đi kèm:</label>
@@ -243,36 +241,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="showAttachFacility" tabindex="-1" aria-labelledby="exampleModalLabel1"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content modalCSS">
-            <div class="modal-header">
-                <h4 class="modal-title text-center" id="exampleModalLabel2">Danh sách dịch vụ đi kèm</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <table>
-<!--                    <tr>-->
-<!--                        <th>Tên dịch vụ</th>-->
-<!--                        <th>Số lượng</th>-->
-<!--                    </tr>-->
-
-<!--                    <tr th:each="item : ${contractDetailList}" th:if="${item.contract.contractId == ${'#contractId'}}">-->
-<!--                        <td class="h6 pe-3" th:text="${item.attachFacility.attachFacilityName}"></td>-->
-<!--                        <td th:text="${item.quantity}"></td>-->
-<!--                    </tr>-->
-                </table>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     function changeEndDate(startDate) {
         document.getElementById("endDate").min = startDate.value;
@@ -281,10 +249,6 @@
 
     function addContractdetail(id) {
         document.getElementById("contractId").value = id;
-    }
-
-    function showAttachFacility(id) {
-        document.getElementById("contractId2").value = id;
     }
 </script>
 </body>
