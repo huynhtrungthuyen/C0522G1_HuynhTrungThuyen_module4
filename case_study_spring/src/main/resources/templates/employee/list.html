@@ -181,7 +181,7 @@
     <div class="modal-dialog">
         <div class="modal-content modalCSS">
             <div class="modal-header">
-                <h4 class="modal-title text-center" id="exampleModalLabel2">Thông tin nhân viên</h4>
+                <h4 class="modal-title text-center" id="exampleModalLabel2">THÔNG TIN NHÂN VIÊN</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -328,7 +328,7 @@
                     <div class="mt-3 form-group">
                         <label class="h6" for="positionAdd">Vị trí:</label>
                         <div class="input-group">
-                            <select id="positionAdd" class="form-control" th:field="*{position.positionId}">
+                            <select id="positionAdd" class="form-select" th:field="*{position.positionId}">
                                 <option th:each="item : ${positionList}" th:value="${item.positionId}"
                                         th:text="${item.positionName}"></option>
                             </select>
@@ -339,7 +339,7 @@
                     <div class="mt-3 form-group">
                         <label class="h6" for="educationDegreeAdd">Trình độ học vấn:</label>
                         <div class="input-group">
-                            <select id="educationDegreeAdd" class="form-control"
+                            <select id="educationDegreeAdd" class="form-select"
                                     th:field="*{educationDegree.educationDegreeId}">
                                 <option th:each="item : ${educationDegreeList}" th:value="${item.educationDegreeId}"
                                         th:text="${item.educationDegreeName}"></option>
@@ -351,7 +351,7 @@
                     <div class="mt-3 form-group">
                         <label class="h6" for="divisionAdd">Bộ phận:</label>
                         <div class="input-group">
-                            <select id="divisionAdd" class="form-control" th:field="*{divisions.divisionId}">
+                            <select id="divisionAdd" class="form-select" th:field="*{divisions.divisionId}">
                                 <option th:each="item : ${divisionList}" th:value="${item.divisionId}"
                                         th:text="${item.divisionName}"></option>
                             </select>
@@ -453,7 +453,7 @@
                     <div class="mt-3 form-group">
                         <label class="h6" for="positionEdit">Vị trí:</label>
                         <div class="input-group">
-                            <select id="positionEdit" class="form-control" th:field="*{position.positionId}">
+                            <select id="positionEdit" class="form-select" th:field="*{position.positionId}">
                                 <option th:each="item : ${positionList}" th:value="${item.positionId}"
                                         th:text="${item.positionName}"></option>
                             </select>
@@ -464,7 +464,7 @@
                     <div class="mt-3 form-group">
                         <label class="h6" for="educationDegreeEdit">Trình độ học vấn:</label>
                         <div class="input-group">
-                            <select id="educationDegreeEdit" class="form-control"
+                            <select id="educationDegreeEdit" class="form-select"
                                     th:field="*{educationDegree.educationDegreeId}">
                                 <option th:each="item : ${educationDegreeList}" th:value="${item.educationDegreeId}"
                                         th:text="${item.educationDegreeName}"></option>
@@ -476,7 +476,7 @@
                     <div class="mt-3 form-group">
                         <label class="h6" for="divisionEdit">Bộ phận:</label>
                         <div class="input-group">
-                            <select id="divisionEdit" class="form-control" th:field="*{divisions.divisionId}">
+                            <select id="divisionEdit" class="form-select" th:field="*{divisions.divisionId}">
                                 <option th:each="item : ${divisionList}" th:value="${item.divisionId}"
                                         th:text="${item.divisionName}"></option>
                             </select>

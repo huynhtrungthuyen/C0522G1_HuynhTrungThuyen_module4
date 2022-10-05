@@ -62,47 +62,53 @@
                     <span class="fa-solid fa-plus text-light h6 m-auto"></span>
                 </button>
 
-                <a th:href="@{/contract/__${contract.contractId}__}">
-                    <button class="btn btn-primary btn-outline-secondary btn-sm ms-3 px-3">
-                        <span class="text-light m-auto">Danh sách dịch vụ đi kèm</span>
-                    </button>
-                </a>
+                <!--                <a th:href="@{/contract/__${contract.contractId}__}">-->
+                <!--                    <button class="btn btn-primary btn-outline-secondary btn-sm ms-3 px-3">-->
+                <!--                        <span class="text-light m-auto">Danh sách dịch vụ đi kèm</span>-->
+                <!--                    </button>-->
+                <!--                </a>-->
+
+                <button class="btn btn-primary btn-outline-secondary btn-sm ms-3 px-3"
+                        th:attr="onclick=|showAttachDetail('${contract.contractId}')|" data-bs-toggle="modal"
+                        data-bs-target="#showAttachDetail">
+                    <span class="text-light m-auto">Danh sách dịch vụ đi kèm</span>
+                </button>
             </td>
         </tr>
     </table>
 
-    <!--    <nav aria-label="...">-->
-    <!--        <ul class="pagination">-->
-    <!--            <li class="page-item">-->
-    <!--                <a class="page-link" th:href="@{'/contract'(page=${contractList.number - 1})}"-->
-    <!--                   th:if="${contractList.hasPrevious()}">&laquo;</a>-->
-    <!--            </li>-->
-    <!--            <li class="page-item disabled" th:unless="${contractList.hasPrevious()}">-->
-    <!--                <a class="page-link">&laquo;</a>-->
-    <!--            </li>-->
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{'/contract'(page=${contractList.number - 1})}"
+                   th:if="${contractList.hasPrevious()}">&laquo;</a>
+            </li>
+            <li class="page-item disabled" th:unless="${contractList.hasPrevious()}">
+                <a class="page-link">&laquo;</a>
+            </li>
 
-    <!--            <li class="page-item"><a class="page-link" th:href="@{'/contract'(page=${contractList.number - 1})}"-->
-    <!--                                     th:if="${contractList.hasPrevious()}" th:text="${contractList.number}"></a>-->
-    <!--            </li>-->
+            <li class="page-item"><a class="page-link" th:href="@{'/contract'(page=${contractList.number - 1})}"
+                                     th:if="${contractList.hasPrevious()}" th:text="${contractList.number}"></a>
+            </li>
 
-    <!--            <li class="page-item active">-->
-    <!--                <a class="page-link" th:href="@{'/contract'(page=${contractList.number})}"-->
-    <!--                   th:text="${contractList.number + 1}"><span class="sr-only">(trang hiện tại)</span></a>-->
-    <!--            </li>-->
+            <li class="page-item active">
+                <a class="page-link" th:href="@{'/contract'(page=${contractList.number})}"
+                   th:text="${contractList.number + 1}"><span class="sr-only">(trang hiện tại)</span></a>
+            </li>
 
-    <!--            <li class="page-item"><a class="page-link" th:href="@{'/contract'(page=${contractList.number + 1})}"-->
-    <!--                                     th:if="${contractList.hasNext()}" th:text="${contractList.number + 2}"></a>-->
-    <!--            </li>-->
+            <li class="page-item"><a class="page-link" th:href="@{'/contract'(page=${contractList.number + 1})}"
+                                     th:if="${contractList.hasNext()}" th:text="${contractList.number + 2}"></a>
+            </li>
 
-    <!--            <li class="page-item">-->
-    <!--                <a class="page-link" th:href="@{'/contract'(page=${contractList.number + 1})}"-->
-    <!--                   th:if="${contractList.hasNext()}">&raquo;</a>-->
-    <!--            </li>-->
-    <!--            <li class="page-item disabled" th:unless="${contractList.hasNext()}">-->
-    <!--                <a class="page-link">&raquo;</a>-->
-    <!--            </li>-->
-    <!--        </ul>-->
-    <!--    </nav>-->
+            <li class="page-item">
+                <a class="page-link" th:href="@{'/contract'(page=${contractList.number + 1})}"
+                   th:if="${contractList.hasNext()}">&raquo;</a>
+            </li>
+            <li class="page-item disabled" th:unless="${contractList.hasNext()}">
+                <a class="page-link">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <footer th:replace="~{/home::footer}"></footer>
@@ -122,7 +128,7 @@
                         <div class="form-group">
                             <label class="h6" for="facility">Tên dịch vụ:</label>
                             <div class="input-group">
-                                <select id="facility" class="form-control" th:field="*{facility.facilityId}">
+                                <select id="facility" class="form-select" th:field="*{facility.facilityId}">
                                     <option th:each="item : ${facilityList}" th:value="${item.facilityId}"
                                             th:text="${item.facilityName}"
                                             th:if="${item.facilityType.facilityTypeId != 3}"></option>
@@ -210,7 +216,7 @@
                         <div class="form-group">
                             <label class="h6" for="attachFacility">Tên dịch vụ đi kèm:</label>
                             <div class="input-group">
-                                <select id="attachFacility" class="form-control"
+                                <select id="attachFacility" class="form-select"
                                         th:field="*{attachFacility.attachFacilityId}">
                                     <option th:each="item : ${attachFacilityList}" th:value="${item.attachFacilityId}"
                                             th:text="${item.attachFacilityName + ' (₫ ' + item.attachFacilityCost + ')'}"></option>
@@ -241,6 +247,34 @@
     </div>
 </div>
 
+<div class="modal fade" id="showAttachDetail" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modalCSS">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" id="exampleModalLabel2">DANH SÁCH DỊCH VỤ ĐI KÈM</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <table id="showSlow"></table>
+
+                <div class="h5 text-danger text-center" id="note">
+                    Chưa có dịch vụ đi kèm trong hợp đồng!
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="jquery/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous">
+</script>
 <script>
     function changeEndDate(startDate) {
         document.getElementById("endDate").min = startDate.value;
@@ -250,10 +284,38 @@
     function addContractdetail(id) {
         document.getElementById("contractId").value = id;
     }
+
+    function showAttachDetail(id) {
+        $("#showSlow").empty();
+        $("#note").show();
+        // $("#showSlow").hide();
+        $.ajax({
+            url: "http://localhost:8080/api/contract/v1/" + id,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                if (data.length > 0) {
+                    $("#note").hide();
+                    let tr = [];
+
+                    tr.push("<tr>");
+                    tr.push("<th>" + "Tên dịch vụ đi kèm" + "</th>");
+                    tr.push("<th class='px-5'>" + "Đơn vị" + "</th>");
+                    tr.push("<th class='text-center'>" + "Số lượng" + "</th>");
+                    tr.push("</tr>");
+
+                    for (let i = 0; i < data.length; i++) {
+                        tr.push("<tr>");
+                        tr.push("<td class='text-primary h6'>" + data[i].nameDto + "</td>");
+                        tr.push("<td class='text-primary px-5'>" + data[i].unitDto + "</td>");
+                        tr.push("<td class='text-primary text-center'>" + data[i].quantityDto + "</td>");
+                        tr.push("</tr>");
+                    }
+                    $("#showSlow").append(tr.join(""));
+                }
+            }
+        })
+    }
 </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous">
-</script>
 </html>

@@ -15,6 +15,7 @@ public class Contract {
     private String startDate;
     private String endDate;
     private String deposit;
+    private boolean deleteStatus;
 
     @OneToMany(mappedBy = "contract")
     private Set<ContractDetail> contractDetail;
@@ -64,6 +65,14 @@ public class Contract {
 
     public void setDeposit(String deposit) {
         this.deposit = deposit;
+    }
+
+    public boolean isDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void setDeleteStatus(boolean deleteStatus) {
+        this.deleteStatus = deleteStatus;
     }
 
     public Set<ContractDetail> getContractDetail() {

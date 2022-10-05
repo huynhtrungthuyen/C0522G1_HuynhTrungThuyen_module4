@@ -6,6 +6,8 @@ import com.example.model.contract.Contract;
 import com.example.repository.contract.IContractRepositoty;
 import com.example.service.contract.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +22,10 @@ public class ContractService implements IContractService {
         return iContractRepositoty.findAllDto();
     }
 
-//    @Override
-//    public Page<IContractDto> findAllDto(Pageable pageable) {
-//        return iContractRepositoty.findAllDto(pageable);
-//    }
+    @Override
+    public Page<IContractDto> findAllDto(Pageable pageable) {
+        return iContractRepositoty.findAllDto(pageable);
+    }
 
     @Override
     public void save(Contract contract) {

@@ -115,7 +115,7 @@
             <div class="mt-3 form-group">
                 <label class="h6" for="customerType">Loại khách:</label>
                 <div class="input-group">
-                    <select id="customerType" class="form-control" th:field="*{customerType.customerTypeId}">
+                    <select id="customerType" class="form-select" th:field="*{customerType.customerTypeId}">
                         <option th:each="item : ${customerTypeList}" th:value="${item.customerTypeId}"
                                 th:text="${item.customerTypeName}"></option>
                     </select>

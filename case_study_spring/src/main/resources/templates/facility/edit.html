@@ -146,7 +146,7 @@
             <div class="mt-3 form-group">
                 <label class="h6" for="rentType">Kiểu thuê:</label>
                 <div class="input-group">
-                    <select id="rentType" class="form-control" th:field="*{rentType.rentTypeId}">
+                    <select id="rentType" class="form-select" th:field="*{rentType.rentTypeId}">
                         <option th:each="item : ${rentTypeList}" th:value="${item.rentTypeId}"
                                 th:text="${item.rentTypeName}"></option>
                     </select>
