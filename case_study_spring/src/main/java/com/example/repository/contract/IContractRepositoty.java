@@ -13,7 +13,8 @@ public interface IContractRepositoty extends JpaRepository<Contract, Integer> {
     @Query(value = "select contract.contract_id as contractId, contract.start_date as startDate, " +
             "contract.end_date as endDate, contract.deposit as deposit, facility.facility_name as facilityName, " +
             "employee.employee_name as employeeName, customer.customer_name as customerName, " +
-            "(facility.rent_cost + contract.deposit + sum(ifnull(contract_detail.quantity, 0) * ifnull(attach_facility.attach_facility_cost, 0))) " +
+            "(facility.rent_cost + contract.deposit + " +
+            "sum(ifnull(contract_detail.quantity, 0) * ifnull(attach_facility.attach_facility_cost, 0))) " +
             "as totalMoney " +
             "from contract " +
             "left join facility on contract.facility_id = facility.facility_id " +
@@ -29,7 +30,8 @@ public interface IContractRepositoty extends JpaRepository<Contract, Integer> {
     @Query(value = "select contract.contract_id as contractId, contract.start_date as startDate, " +
             "contract.end_date as endDate, contract.deposit as deposit, facility.facility_name as facilityName, " +
             "employee.employee_name as employeeName, customer.customer_name as customerName, " +
-            "(facility.rent_cost + contract.deposit + sum(ifnull(contract_detail.quantity, 0) * ifnull(attach_facility.attach_facility_cost, 0))) " +
+            "(facility.rent_cost + contract.deposit + " +
+            "sum(ifnull(contract_detail.quantity, 0) * ifnull(attach_facility.attach_facility_cost, 0))) " +
             "as totalMoney " +
             "from contract " +
             "left join facility on contract.facility_id = facility.facility_id " +

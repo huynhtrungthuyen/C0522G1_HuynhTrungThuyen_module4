@@ -40,7 +40,7 @@ public class FacilityController {
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
+    public String createFac(Model model) {
         model.addAttribute("facilityDto", new FacilityDto());
         model.addAttribute("facilityTypeList", iFacilityTypeService.findAll());
         model.addAttribute("rentTypeList", iRentTypeService.findAll());
@@ -49,7 +49,7 @@ public class FacilityController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute @Validated FacilityDto facilityDto, BindingResult bindingResult,
+    public String saveFac(@ModelAttribute @Validated FacilityDto facilityDto, BindingResult bindingResult,
                        RedirectAttributes redirectAttributes, Model model) {
         new FacilityDto().validate(facilityDto, bindingResult);
 
@@ -69,7 +69,7 @@ public class FacilityController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model) {
+    public String editFac(@PathVariable Integer id, Model model) {
         Facility facility = iFacilityService.findById(id).get();
 
         FacilityDto facilityDto = new FacilityDto();
@@ -83,7 +83,7 @@ public class FacilityController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute @Validated FacilityDto facilityDto, BindingResult bindingResult,
+    public String updateFac(@ModelAttribute @Validated FacilityDto facilityDto, BindingResult bindingResult,
                          RedirectAttributes redirectAttributes, Model model) {
         new FacilityDto().validate(facilityDto, bindingResult);
 
@@ -103,7 +103,7 @@ public class FacilityController {
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam(value = "idDelete") Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteFac(@RequestParam(value = "idDelete") Integer id, RedirectAttributes redirectAttributes) {
         iFacilityService.deleteLogical(id);
         redirectAttributes.addFlashAttribute("message", "Xóa dịch vụ  [" +
                 iFacilityService.findById(id).get().getFacilityName() + "]  thành công.");

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -13,7 +13,11 @@
 
     <style>
         .header {
-            background-image: url("https://i.pinimg.com/originals/86/41/6d/86416d71cbd1e608a5304bb92fc235ea.png");
+            /*background-image: url("https://i.pinimg.com/originals/86/41/6d/86416d71cbd1e608a5304bb92fc235ea.png");*/
+            /*background-image: url("https://griddl.co/wp-content/uploads/2020/07/griddl-overdose-lifeline.gif");*/
+            /*background-image: url("https://i.pinimg.com/originals/c7/1b/e0/c71be0510bb255fa135f19aa25a07fa7.gif");*/
+            background-image: url("https://wallpapersmug.com/download/1920x1080/4d7d03/light-colors-geometric-pattern-abstract.jpg");
+            /*background-image: url("https://armourroofinc.com/_images/thunder-1900.gif");*/
         }
 
         a {
@@ -35,7 +39,9 @@
         }
 
         body {
-            background-image: url("https://images.hdqwalls.com/download/dark-space-minimal-art-4k-ll-2560x1440.jpg");
+            /*background-image: url("https://images.hdqwalls.com/download/dark-space-minimal-art-4k-ll-2560x1440.jpg");*/
+            background-image: url("https://cutewallpaper.org/27/black-wallpaper-iphone-gif/pin-on-things.gif");
+            /*background-image: url("https://www.bimbaylola.mx/on/demandware.static/-/Library-Sites-byl-shared-library/default/dw12dfb3d9/brand-thisiscosmic/desktop/fondo-estrellas.gif");*/
         }
 
         input:invalid {
@@ -60,7 +66,23 @@
              alt="">
 
         <div class="container-fluid text-end my-4 me-4">
-            <span class="badge text-bg-warning mt-3">Huỳnh Trung Thuyên</span>
+            <div sec:authorize="isAuthenticated()">
+            <span class="mt-3" style="font-size: 15px">
+                    <strong sec:authentication="principal.username"></strong>
+            </span>
+
+            <a th:href="@{/logout}">
+                <button class="btn btn-danger btn-outline-secondary text-light">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+                </button>
+            </a>
+            </div>
+
+            <a th:href="@{/login}" sec:authorize="!isAuthenticated()">
+                <button class="btn btn-success btn-outline-secondary text-light">
+                    <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+                </button>
+            </a>
         </div>
     </div>
 
@@ -78,6 +100,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!--                    <li class="nav-item dropdown ms-3" sec:authorize="hasRole('ADMIN')">-->
                     <li class="nav-item dropdown ms-3">
                         <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">Nhân viên</a>
@@ -122,7 +145,8 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" th:href="@{/contract/create}">Thêm hợp đồng mới</a></li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal"
+                                   data-bs-target="#addContract">Thêm hợp đồng mới</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -47,7 +47,7 @@
 
     <table class="table table-light table-striped table-bordered">
         <tr class="table-dark text-light">
-            <th class="text-center"><i class="fa-solid fa-dog"></i></th>
+            <th class="text-center"><i class="fa-sharp fa-solid fa-bolt"></i></th>
             <th>Tên dịch vụ</th>
             <th>Diện tích (m<sup>2</sup>)</th>
             <th>Chi phí thuê</th>
@@ -82,14 +82,14 @@
                 '${facility.facilityType.facilityTypeName}')|"
                         class="btn btn-warning btn-outline-secondary btn-sm" data-bs-toggle="modal"
                         data-bs-target="#viewFacility">
-                    <span class="fa-solid fa-user text-light h6 m-auto px-2"></span>
+                    <span class="fa-solid fa-circle-question text-light h6 m-auto px-2"></span>
                 </button>
             </td>
 
             <td class="text-center">
                 <a th:href="@{/facility/edit/__${facility.facilityId}__}">
                     <button class="btn btn-success btn-outline-secondary btn-sm">
-                        <span class="fa-solid fa-user-pen text-light h6 m-auto px-2"></span>
+                        <span class="fa-solid fa-house-circle-exclamation text-light h6 m-auto px-2"></span>
                     </button>
                 </a>
             </td>
@@ -98,13 +98,13 @@
                 <button th:attr="onclick=|deleteFacility('${facility.facilityId}', '${facility.facilityName}')|"
                         class="btn btn-danger btn-outline-secondary btn-sm" data-bs-toggle="modal"
                         data-bs-target="#deleteFacility">
-                    <span class="fa-solid fa-person-circle-minus text-light h6 m-auto px-2"></span>
+                    <span class="fa-solid fa-house-circle-xmark text-light h6 m-auto px-2"></span>
                 </button>
             </td>
         </tr>
     </table>
 
-    <nav aria-label="...">
+    <nav aria-label="..." class="justify-content-center d-flex">
         <ul class="pagination">
             <li class="page-item">
                 <a class="page-link" th:href="@{'/facility'(page=${facilityList.number - 1}, nameSearch=${nameSearch})}"

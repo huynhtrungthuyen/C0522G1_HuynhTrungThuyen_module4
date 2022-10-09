@@ -52,7 +52,7 @@ public class CustomerController {
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
+    public String createCus(Model model) {
         model.addAttribute("customerDto", new CustomerDto());
         model.addAttribute("customerTypeList", iCustomerTypeService.findAll());
 
@@ -65,7 +65,7 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult,
+    public String saveCus(@ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult,
                        RedirectAttributes redirectAttributes, Model model) {
         new CustomerDto().validate(customerDto, bindingResult);
 
@@ -101,7 +101,7 @@ public class CustomerController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model) {
+    public String editCus(@PathVariable Integer id, Model model) {
         Customer customer = iCustomerService.findById(id).get();
 
         if (customer.getCustomerBirthday().contains("/")) {
@@ -124,7 +124,7 @@ public class CustomerController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult,
+    public String updateCus(@ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult,
                          RedirectAttributes redirectAttributes, Model model) {
         new CustomerDto().validate(customerDto, bindingResult);
 
@@ -163,7 +163,7 @@ public class CustomerController {
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam(value = "idDelete") Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteCus(@RequestParam(value = "idDelete") Integer id, RedirectAttributes redirectAttributes) {
         iCustomerService.deleteLogical(id);
         redirectAttributes.addFlashAttribute("message", "Xóa khách hàng  [" +
                 iCustomerService.findById(id).get().getCustomerName() + "]  thành công.");

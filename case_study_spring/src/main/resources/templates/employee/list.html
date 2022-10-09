@@ -14,10 +14,6 @@
 <div class="p-3">
     <h2 class="text-center fw-bold text-light my-3">DANH SÁCH NHÂN VIÊN</h2>
 
-<!--    <p class="text-center mt-3">-->
-<!--        <a th:href="@{/}"><i class="fa-solid fa-house-chimney h5 mx-1"></i> Quay lại trang chủ</a>-->
-<!--    </p>-->
-
     <div th:if="${message}">
         <div class="justify-content-center d-flex">
             <div class="alert alert-success alert-dismissible fade show w-50 text-center">
@@ -52,7 +48,7 @@
 
     <table class="table table-light table-striped table-bordered">
         <tr class="table-dark text-light">
-            <th class="text-center"><i class="fa-solid fa-dog"></i></th>
+            <th class="text-center"><i class="fa-sharp fa-solid fa-bolt"></i></th>
             <th>Tên nhân viên</th>
             <th>Ngày sinh</th>
             <th>SĐT</th>
@@ -114,7 +110,7 @@
         </tr>
     </table>
 
-    <nav aria-label="...">
+    <nav aria-label="..." class="justify-content-center d-flex">
         <ul class="pagination">
             <li class="page-item">
                 <a class="page-link" th:href="@{'/employee'(page=${employeeList.number - 1}, nameSearch=${nameSearch},

@@ -67,7 +67,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
+    public String createEmp(Model model) {
         model.addAttribute("employeeDto", new EmployeeDto());
         model.addAttribute("divisionList", iDivisionService.findAll());
         model.addAttribute("educationDegreeList", iEducationDegreeService.findAll());
@@ -82,7 +82,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute @Validated EmployeeDto employeeDto, BindingResult bindingResult,
+    public String saveEmp(@ModelAttribute @Validated EmployeeDto employeeDto, BindingResult bindingResult,
                        RedirectAttributes redirectAttributes, Model model) {
         new EmployeeDto().validate(employeeDto, bindingResult);
 
@@ -108,7 +108,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model) {
+    public String editEmp(@PathVariable Integer id, Model model) {
         Employee employee = iEmployeeService.findById(id).get();
 
         if (employee.getEmployeeBirthday().contains("/")) {
@@ -133,7 +133,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute @Validated EmployeeDto employeeDto, BindingResult bindingResult,
+    public String updateEmp(@ModelAttribute @Validated EmployeeDto employeeDto, BindingResult bindingResult,
                          RedirectAttributes redirectAttributes, Model model) {
         new EmployeeDto().validate(employeeDto, bindingResult);
 
@@ -159,7 +159,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam(value = "idDelete") Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteEmp(@RequestParam(value = "idDelete") Integer id, RedirectAttributes redirectAttributes) {
         iEmployeeService.deleteLogical(id);
         redirectAttributes.addFlashAttribute("message", "Xóa nhân viên  [" +
                 iEmployeeService.findById(id).get().getEmployeeName() + "]  thành công.");

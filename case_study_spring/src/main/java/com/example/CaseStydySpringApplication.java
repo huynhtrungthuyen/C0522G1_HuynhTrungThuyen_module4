@@ -9,5 +9,4 @@ public class CaseStydySpringApplication {
     public static void main(String[] args) {
         SpringApplication.run(CaseStydySpringApplication.class, args);
     }
-
 }

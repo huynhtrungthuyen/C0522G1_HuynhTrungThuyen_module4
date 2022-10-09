@@ -42,7 +42,7 @@ public class ContractController {
     private ICustomerService iCustomerService;
 
     @GetMapping("")
-    public String showList(@PageableDefault(value = 5) Pageable pageable, Model model) {
+    public String showListContract(@PageableDefault(value = 5) Pageable pageable, Model model) {
         List<Contract> contractList = iContractService.findAll();
         for (Contract contract : contractList) {
             if (contract.getStartDate().contains("-")) {
@@ -72,7 +72,7 @@ public class ContractController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute Contract contract, RedirectAttributes redirectAttributes) {
+    public String saveContract(@ModelAttribute Contract contract, RedirectAttributes redirectAttributes) {
         iContractService.save(contract);
         redirectAttributes.addFlashAttribute("message", "Thêm mới hợp đồng thành công!");
 
