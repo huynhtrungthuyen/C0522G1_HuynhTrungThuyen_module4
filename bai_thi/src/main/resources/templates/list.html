@@ -30,7 +30,7 @@
 </head>
 <body>
 <div class="p-3 mt-5">
-    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH SUẤT CHIẾU</h2>
+    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH SẢN PHẨM</h2>
 
     <div th:if="${message}">
         <div class="justify-content-center d-flex">
@@ -46,13 +46,23 @@
             <a th:href="@{/create}">
                 <button class="btn btn-primary btn-outline-secondary btn-sm">
                     <span class="fa-solid fa-person-circle-plus text-light h5 my-auto me-1"></span>
-                    <span class="text-light"> Thêm mới suất chiếu</span>
+                    <span class="text-light"> Thêm mới sản phẩm</span>
                 </button>
             </a>
 
             <form class="d-flex my-2" role="search" th:action="@{/}">
-                <input class="form-control me-2" type="text" placeholder="Nhập mã suất chiếu.." aria-label="Search"
-                       name="codeSearch">
+                <input class="form-control me-2" type="text" placeholder="Nhập tên sản phẩm..." aria-label="Search"
+                       name="nameSearch" id="nameSearch">
+
+                <input class="form-control me-2" type="text" placeholder="Nhập giá sản phẩm..." aria-label="Search"
+                       name="priceSearch" id="priceSearch">
+
+<!--                <select name="typeSearch" class="form-select me-2">-->
+<!--                    <option value="">Loại sản phẩm</option>-->
+<!--                    <option th:each="item : ${productTypeList}" th:value="${item.productTypeId}"-->
+<!--                            th:text="${item.productTypeName}"></option>-->
+<!--                </select>-->
+                <input type="button" class="btn btn-light btn-outline-warning me-2" onclick="del()" value="X"/>
 
                 <button class="btn btn-light btn-outline-primary" type="submit" name="action" value="search">
                     <i class="fa-solid fa-magnifying-glass"></i></button>
@@ -63,27 +73,30 @@
     <table class="table table-light table-striped table-bordered">
         <tr class="table-dark text-light">
             <th class="text-center"><i class="fa-sharp fa-solid fa-bolt"></i></th>
-            <th>Mã suất chiếu</th>
-            <th>Tên phim</th>
-            <th>Ngày chiếu</th>
-            <th>Số lượng vé</th>
+            <th class="text-center">Chọn</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá bắt đầu</th>
+            <th>Loại sản phẩm</th>
+            <th>Tình trạng</th>
             <th class="text-center">Sửa</th>
             <th class="text-center">Xóa</th>
         </tr>
 
-        <tr th:each="cinema, status : ${cinemaList}">
-            <td class="text-center" th:text="${status.count + cinemaList.number * 3}"></td>
+        <tr th:each="product, status : ${productList}">
+            <td class="text-center" th:text="${status.count + productList.number * 5}"></td>
 
-            <td th:text="${cinema.cinemaCode}"></td>
+            <td class="text-center"><input type="checkbox"/></td>
 
-            <td th:text="${cinema.filmHd.filmName}"></td>
+            <td th:text="${product.productName}"></td>
 
-            <td th:text="${cinema.cinemaDate}"></td>
+            <td th:text="${'₫ ' + product.productPrice}"></td>
 
-            <td th:text="${cinema.cinemaQuantity}"></td>
+            <td th:text="${product.productType.productTypeName}"></td>
+
+            <td th:text="${product.productStatus}"></td>
 
             <td class="text-center">
-                <a th:href="@{/edit/__${cinema.cinemaId}__}">
+                <a th:href="@{/edit/__${product.productId}__}">
                     <button class="btn btn-success btn-outline-secondary btn-sm">
                         <span class="fa-solid fa-user-pen text-light h6 m-auto px-2"></span>
                     </button>
@@ -91,9 +104,9 @@
             </td>
 
             <td class="text-center">
-                <button th:attr="onclick=|deleteCinema('${cinema.cinemaId}', '${cinema.cinemaCode}')|"
+                <button th:attr="onclick=|deleteProduct('${product.productId}', '${product.productName}')|"
                         class="btn btn-danger btn-outline-secondary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#deleteCinema">
+                        data-bs-target="#deleteProduct">
                     <span class="fa-solid fa-person-circle-minus text-light h6 m-auto px-2"></span>
                 </button>
             </td>
@@ -103,39 +116,39 @@
     <nav aria-label="..." class="justify-content-center d-flex">
         <ul class="pagination">
             <li class="page-item">
-                <a class="page-link" th:href="@{'/'(page=${cinemaList.number - 1}, codeSearch=${codeSearch})}"
-                   th:if="${cinemaList.hasPrevious()}">&laquo;</a>
+                <a class="page-link" th:href="@{'/'(page=${productList.number - 1}, nameSearch=${nameSearch}, priceSearch=${priceSearch})}"
+                   th:if="${productList.hasPrevious()}">&laquo;</a>
             </li>
-            <li class="page-item disabled" th:unless="${cinemaList.hasPrevious()}">
+            <li class="page-item disabled" th:unless="${productList.hasPrevious()}">
                 <a class="page-link">&laquo;</a>
             </li>
 
-            <li class="page-item"><a class="page-link" th:href="@{'/'(page=${cinemaList.number - 1},
-            codeSearch=${codeSearch})}" th:if="${cinemaList.hasPrevious()}" th:text="${cinemaList.number}"></a>
+            <li class="page-item"><a class="page-link" th:href="@{'/'(page=${productList.number - 1},
+            nameSearch=${nameSearch}, priceSearch=${priceSearch})}" th:if="${productList.hasPrevious()}" th:text="${productList.number}"></a>
             </li>
 
             <li class="page-item active">
-                <a class="page-link" th:href="@{'/'(page=${cinemaList.number}, codeSearch=${codeSearch})}"
-                   th:text="${cinemaList.number + 1}">
+                <a class="page-link" th:href="@{'/'(page=${productList.number}, nameSearch=${nameSearch}, priceSearch=${priceSearch})}"
+                   th:text="${productList.number + 1}">
                     <span class="sr-only">(trang hiện tại)</span></a>
             </li>
 
-            <li class="page-item"><a class="page-link" th:href="@{'/'(page=${cinemaList.number + 1},
-            codeSearch=${codeSearch})}" th:if="${cinemaList.hasNext()}" th:text="${cinemaList.number + 2}"></a>
+            <li class="page-item"><a class="page-link" th:href="@{'/'(page=${productList.number + 1},
+            nameSearch=${nameSearch}, priceSearch=${priceSearch})}" th:if="${productList.hasNext()}" th:text="${productList.number + 2}"></a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" th:href="@{'/'(page=${cinemaList.number + 1}, codeSearch=${codeSearch})}"
-                   th:if="${cinemaList.hasNext()}">&raquo;</a>
+                <a class="page-link" th:href="@{'/'(page=${productList.number + 1}, nameSearch=${nameSearch}, priceSearch=${priceSearch})}"
+                   th:if="${productList.hasNext()}">&raquo;</a>
             </li>
-            <li class="page-item disabled" th:unless="${cinemaList.hasNext()}">
+            <li class="page-item disabled" th:unless="${productList.hasNext()}">
                 <a class="page-link">&raquo;</a>
             </li>
         </ul>
     </nav>
 </div>
 
-<div class="modal fade" id="deleteCinema" tabindex="-1" aria-labelledby="exampleModalLabel1"
+<div class="modal fade" id="deleteProduct" tabindex="-1" aria-labelledby="exampleModalLabel1"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content modalCSS">
@@ -146,7 +159,7 @@
 
             <form th:action="@{/delete}">
                 <div class="modal-body">
-                    <span class="h6">Mã suất chiếu:</span><strong id="codeDelete" class="text-danger ps-2"></strong>
+                    <span class="h6">Tên sản phẩm:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
                     <input type="hidden" name="idDelete" id="idDelete" readonly/>
                 </div>
 
@@ -159,11 +172,17 @@
     </div>
 </div>
 
+<script src="jquery/jquery-3.5.1.min.js"></script>
 <script>
-    function deleteCinema(id, code) {
+    function deleteProduct(id, name) {
         document.getElementById("idDelete").value = id;
-        document.getElementById("codeDelete").innerText = code;
+        document.getElementById("nameDelete").innerText = name;
         debugger
+    }
+
+    function del() {
+        document.getElementById("nameSearch").value = "";
+        document.getElementById("priceSearch").value = "";
     }
 </script>
 </body>
