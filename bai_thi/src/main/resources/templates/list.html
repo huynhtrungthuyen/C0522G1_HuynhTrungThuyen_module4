@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <style>
+        a {
+            text-decoration: none;
+            color: #bad8ff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #bad8ff;
+        }
+
+        .modalCSS {
+            background-image: url("https://images.unsplash.com/photo-1607513746994-51f730a44832?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb");
+        }
+
+        body {
+            background-image: url("https://cutewallpaper.org/27/black-wallpaper-iphone-gif/pin-on-things.gif");
+        }
+    </style>
+</head>
+<body>
+<div class="p-3 mt-5">
+    <h2 class="text-center fw-bold text-light my-3">DANH SÁCH SUẤT CHIẾU</h2>
+
+    <div th:if="${message}">
+        <div class="justify-content-center d-flex">
+            <div class="alert alert-success alert-dismissible fade show w-50 text-center">
+                <strong th:text="${message}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg py-0 my-0">
+        <div class="container-fluid">
+            <a th:href="@{/create}">
+                <button class="btn btn-primary btn-outline-secondary btn-sm">
+                    <span class="fa-solid fa-person-circle-plus text-light h5 my-auto me-1"></span>
+                    <span class="text-light"> Thêm mới suất chiếu</span>
+                </button>
+            </a>
+
+            <form class="d-flex my-2" role="search" th:action="@{/}">
+                <input class="form-control me-2" type="text" placeholder="Nhập mã suất chiếu.." aria-label="Search"
+                       name="codeSearch">
+
+                <button class="btn btn-light btn-outline-primary" type="submit" name="action" value="search">
+                    <i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+    </nav>
+
+    <table class="table table-light table-striped table-bordered">
+        <tr class="table-dark text-light">
+            <th class="text-center"><i class="fa-sharp fa-solid fa-bolt"></i></th>
+            <th>Mã suất chiếu</th>
+            <th>Tên phim</th>
+            <th>Ngày chiếu</th>
+            <th>Số lượng vé</th>
+            <th class="text-center">Sửa</th>
+            <th class="text-center">Xóa</th>
+        </tr>
+
+        <tr th:each="cinema, status : ${cinemaList}">
+            <td class="text-center" th:text="${status.count + cinemaList.number * 3}"></td>
+
+            <td th:text="${cinema.cinemaCode}"></td>
+
+            <td th:text="${cinema.filmHd.filmName}"></td>
+
+            <td th:text="${cinema.cinemaDate}"></td>
+
+            <td th:text="${cinema.cinemaQuantity}"></td>
+
+            <td class="text-center">
+                <a th:href="@{/edit/__${cinema.cinemaId}__}">
+                    <button class="btn btn-success btn-outline-secondary btn-sm">
+                        <span class="fa-solid fa-user-pen text-light h6 m-auto px-2"></span>
+                    </button>
+                </a>
+            </td>
+
+            <td class="text-center">
+                <button th:attr="onclick=|deleteCinema('${cinema.cinemaId}', '${cinema.cinemaCode}')|"
+                        class="btn btn-danger btn-outline-secondary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#deleteCinema">
+                    <span class="fa-solid fa-person-circle-minus text-light h6 m-auto px-2"></span>
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <nav aria-label="..." class="justify-content-center d-flex">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{'/'(page=${cinemaList.number - 1}, codeSearch=${codeSearch})}"
+                   th:if="${cinemaList.hasPrevious()}">&laquo;</a>
+            </li>
+            <li class="page-item disabled" th:unless="${cinemaList.hasPrevious()}">
+                <a class="page-link">&laquo;</a>
+            </li>
+
+            <li class="page-item"><a class="page-link" th:href="@{'/'(page=${cinemaList.number - 1},
+            codeSearch=${codeSearch})}" th:if="${cinemaList.hasPrevious()}" th:text="${cinemaList.number}"></a>
+            </li>
+
+            <li class="page-item active">
+                <a class="page-link" th:href="@{'/'(page=${cinemaList.number}, codeSearch=${codeSearch})}"
+                   th:text="${cinemaList.number + 1}">
+                    <span class="sr-only">(trang hiện tại)</span></a>
+            </li>
+
+            <li class="page-item"><a class="page-link" th:href="@{'/'(page=${cinemaList.number + 1},
+            codeSearch=${codeSearch})}" th:if="${cinemaList.hasNext()}" th:text="${cinemaList.number + 2}"></a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{'/'(page=${cinemaList.number + 1}, codeSearch=${codeSearch})}"
+                   th:if="${cinemaList.hasNext()}">&raquo;</a>
+            </li>
+            <li class="page-item disabled" th:unless="${cinemaList.hasNext()}">
+                <a class="page-link">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="modal fade" id="deleteCinema" tabindex="-1" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modalCSS">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Bạn có chắc chắn muốn xóa?</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form th:action="@{/delete}">
+                <div class="modal-body">
+                    <span class="h6">Mã suất chiếu:</span><strong id="codeDelete" class="text-danger ps-2"></strong>
+                    <input type="hidden" name="idDelete" id="idDelete" readonly/>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-danger" value="delete">Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteCinema(id, code) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("codeDelete").innerText = code;
+        debugger
+    }
+</script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous">
+</script>
+</html>
